@@ -3,7 +3,7 @@ package org.setu
 import java.util.*
 import kotlin.collections.ArrayList
 
-class club (
+class Club (
     val name: String,
     val city: String,
     val stadium: String,

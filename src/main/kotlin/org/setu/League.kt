@@ -1,16 +1,16 @@
 package org.setu
 
-class league (
+class League (
     var name: String,
     var country: String,
-    private var clubs: MutableList<club> = ArrayList()
+    private var clubs: MutableList<Club> = ArrayList()
 ) {
 
         fun addClub(name: String, city: String, stadium: String) {
-            val club = club(name,city,stadium)
+            val club = Club(name,city,stadium)
             clubs.add(club)
         }
-        fun removeClub(club: club) {
+        fun removeClub(club: Club) {
             clubs.remove(club)
         }
         fun removeClub(index: Int) {
@@ -24,10 +24,10 @@ class league (
             val list = clubs.mapIndexed { index, club -> "${index + 1}. $club" }
             return list.joinToString("\n")
         }
-        fun getClub(index: Int): club {
+        fun getClub(index: Int): Club {
             return clubs[index]
         }
-        fun searchClub(name: String): club? {
+        fun searchClub(name: String): Club? {
             return clubs.find { it.name.uppercase() == name.uppercase() }
         }
 
