@@ -1,21 +1,27 @@
 package org.setu
 
+import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
 
 class Club (
-    val name: String,
-    val city: String,
-    val stadium: String,
+    var name: String,
+    var city: String,
+    var stadium: String,
     private val players: MutableList<Player> = ArrayList()
 ) {
 
-    fun addPlayer(name: String, dateOfBirth : Date, positions: List<String>, nationality: String) {
-        val player = Player(name,dateOfBirth,positions,nationality)
+    fun addPlayer(name: String, dateOfBirth : LocalDate, position: String, nationality: String) {
+        val player = Player(name,dateOfBirth,position ,nationality)
         players.add(player)
     }
     fun removePlayer(player: Player) {
         players.remove(player)
+    }
+
+    fun replacePlayer(index: Int, name: String, dateOfBirth : LocalDate, position: String, nationality: String){
+        val player = Player(name,dateOfBirth,position ,nationality)
+        players[index] = player
     }
     fun removePlayer(index: Int) {
         players.removeAt(index)
@@ -35,7 +41,7 @@ class Club (
         return players[index]
     }
     fun searchPlayer(name: String): Player? {
-        return players.find { it.name.uppercase() == name.uppercase() }
+        return players.find { it.name.equals(name, ignoreCase = true) }
     }
 
 }
