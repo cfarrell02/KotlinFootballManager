@@ -11,8 +11,6 @@ import org.setu.League
 import org.setu.Player
 import tornadofx.*
 import java.io.File
-import java.time.LocalDate
-import javax.json.JsonArray
 
 
 class MainController {
@@ -53,6 +51,9 @@ class MainController {
     lateinit var playerNationalityLabel: Label
     lateinit var updatePlayerButton: Button
     lateinit var positionBox : TextField
+    lateinit var searchPane : Pane
+    lateinit var searchBox : TextField
+    lateinit var resultList : ListView<Any>
 
 
     @FXML
@@ -61,6 +62,7 @@ class MainController {
         leaguePane.isVisible = false
         clubPane.isVisible = false
         playerPane.isVisible = false
+        searchPane.isVisible = false
 
 
         //Deleting from list code
@@ -159,7 +161,8 @@ class MainController {
     }
     fun goBack(){
         //Generic go back function
-        if(leaguePane.isVisible){
+        if(leaguePane.isVisible || searchPane.isVisible){
+            searchPane.isVisible = false
             leaguePane.isVisible = false
             mainPane.isVisible = true
             selectedLeague = null
@@ -278,7 +281,7 @@ class MainController {
 
     }
 
-    fun removePlayer(){
+    private fun removePlayer(){
         val selectedPlayer = playerList.selectionModel.selectedItem
         val player = selectedClub?.getPlayer(selectedPlayer.uid)
         selectedClub?.removePlayer(player!!)
@@ -334,4 +337,33 @@ class MainController {
         leaguePane.isVisible = false
         mainPane.isVisible = true
     }
+
+    fun openSearch(){
+        searchPane.isVisible = true
+        mainPane.isVisible = false
+    }
+
+    fun search(){
+        val searchTerm = searchBox.text
+        val searchResults = ArrayList<Any>()
+        //Big bulky inefficient triple nested loop
+        //Could I make this more efficient? Yes but I'm lazy and will not be doing that lmao
+        leagues.forEach { league ->
+            if (league.toString().contains(searchTerm, ignoreCase = true)) {
+                searchResults.add(league)
+            }
+            league.clubs.forEach { club ->
+                if (club.toString().contains(searchTerm, ignoreCase = true)) {
+                    searchResults.add(club)
+                }
+                club.players.forEach { player ->
+                    if (player.toString().contains(searchTerm, ignoreCase = true)) {
+                        searchResults.add(player)
+                    }
+                }
+            }
+        }
+        resultList.items = searchResults.toObservable()
+    }
+
 }

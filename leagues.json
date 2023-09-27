@@ -21,9 +21,87 @@
             "nationality": "Brazilian",
             "number": 1,
             "uid": "9a49d9ff-5c44-40a1-aa3b-c0bf7dbac485"
+          },
+          {
+            "name": "Sadio Mané",
+            "dateOfBirth": {
+              "year": 1992,
+              "month": 4,
+              "day": 10
+            },
+            "positions": [
+              "LW"
+            ],
+            "nationality": "Senegalese",
+            "number": 10,
+            "uid": "3e4a51c5-8adb-4eeb-97fe-624829948259"
+          },
+          {
+            "name": "Virgil van Dijk",
+            "dateOfBirth": {
+              "year": 1991,
+              "month": 7,
+              "day": 8
+            },
+            "positions": [
+              "CB"
+            ],
+            "nationality": "Dutch",
+            "number": 4,
+            "uid": "3e4a51c5-8adb-4eeb-97fe-624829948260"
           }
         ],
         "uid": "c9207116-a2a9-46d6-85b4-f3c681da499d"
+      },
+      {
+        "name": "Manchester United",
+        "city": "Manchester",
+        "stadium": "Old Trafford",
+        "players": [
+          {
+            "name": "Bruno Fernandes",
+            "dateOfBirth": {
+              "year": 1994,
+              "month": 9,
+              "day": 8
+            },
+            "positions": [
+              "CAM"
+            ],
+            "nationality": "Portuguese",
+            "number": 18,
+            "uid": "3e4a51c5-8adb-4eeb-97fe-624829948261"
+          },
+          {
+            "name": "Harry Maguire",
+            "dateOfBirth": {
+              "year": 1993,
+              "month": 3,
+              "day": 5
+            },
+            "positions": [
+              "CB"
+            ],
+            "nationality": "English",
+            "number": 5,
+            "uid": "3e4a51c5-8adb-4eeb-97fe-624829948262"
+          },
+          {
+            "name": "Marcus Rashford",
+            "dateOfBirth": {
+              "year": 1997,
+              "month": 10,
+              "day": 31
+            },
+            "positions": [
+              "LW"
+            ],
+            "nationality": "English",
+            "number": 10,
+            "uid": "3e4a51c5-8adb-4eeb-97fe-624829948263"
+          }
+        ],
+        "uid": "c9207116-a2a9-46d6-85b4-f3c681da499e"
       }
     ],
     "uid": "3e4a51c5-8adb-4eeb-97fe-624829948258"
@@ -50,6 +128,34 @@
             "nationality": "Dutch",
             "number": 9,
             "uid": "faafa10f-f2d2-4bab-9246-c98ce33d6beb"
+          },
+          {
+            "name": "Lionel Messi",
+            "dateOfBirth": {
+              "year": 1987,
+              "month": 6,
+              "day": 24
+            },
+            "positions": [
+              "RW"
+            ],
+            "nationality": "Argentinian",
+            "number": 10,
+            "uid": "faafa10f-f2d2-4bab-9246-c98ce33d6bec"
+          },
+          {
+            "name": "Gerard Piqué",
+            "dateOfBirth": {
+              "year": 1987,
+              "month": 2,
+              "day": 2
+            },
+            "positions": [
+              "CB"
+            ],
+            "nationality": "Spanish",
+            "number": 3,
+            "uid": "faafa10f-f2d2-4bab-9246-c98ce33d6bed"
           }
         ],
         "uid": "5ce23a6d-1ee0-470a-bbbf-b631c2c74dd4"
@@ -64,8 +170,51 @@
       {
         "name": "PSG",
         "city": "Paris",
-        "stadium": "Princes Park",
-        "players": [],
+        "stadium": "Parc des Princes",
+        "players": [
+          {
+            "name": "Neymar Jr.",
+            "dateOfBirth": {
+              "year": 1992,
+              "month": 2,
+              "day": 5
+            },
+            "positions": [
+              "LW"
+            ],
+            "nationality": "Brazilian",
+            "number": 10,
+            "uid": "ba6d008c-535c-42ee-97e3-940317334b87"
+          },
+          {
+            "name": "Kylian Mbappé",
+            "dateOfBirth": {
+              "year": 1998,
+              "month": 12,
+              "day": 20
+            },
+            "positions": [
+              "RW"
+            ],
+            "nationality": "French",
+            "number": 7,
+            "uid": "ba6d008c-535c-42ee-97e3-940317334b88"
+          },
+          {
+            "name": "Marco Verratti",
+            "dateOfBirth": {
+              "year": 1992,
+              "month": 11,
+              "day": 5
+            },
+            "positions": [
+              "CM"
+            ],
+            "nationality": "Italian",
+            "number": 6,
+            "uid": "ba6d008c-535c-42ee-97e3-940317334b89"
+          }
+        ],
         "uid": "ba6d008c-535c-42ee-97e3-940317334b86"
       }
     ],
