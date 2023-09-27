@@ -11,7 +11,6 @@
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Club.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Club.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/League.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/League.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Player.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Player.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/view/MainView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/view/MainView.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/MainView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -175,7 +174,7 @@
       <workItem from="1695767708986" duration="189000" />
       <workItem from="1695768101381" duration="2367000" />
       <workItem from="1695801909847" duration="8100000" />
-      <workItem from="1695813833557" duration="6262000" />
+      <workItem from="1695813833557" duration="9008000" />
     </task>
     <servers />
   </component>

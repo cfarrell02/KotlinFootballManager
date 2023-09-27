@@ -16,14 +16,14 @@ import javax.json.JsonArray
 
 
 class MainController {
-    private val leagues = mutableListOf<League>()
+    private val leagues = ArrayList<League>()
     private var selectedLeague: League? = null
     private var selectedClub: Club? = null
     private var selectedPlayer: Player? = null
 
     @FXML
-    lateinit var mainList: ListView<String>
-    lateinit var clubList : ListView<String>
+    lateinit var mainList: ListView<League>
+    lateinit var clubList : ListView<Club>
     lateinit var positionList : ListView<String>
     lateinit var leagueName: TextField
     lateinit var leagueNation : TextField
@@ -44,7 +44,7 @@ class MainController {
     lateinit var playerNumber : TextField
     lateinit var playerDOB : DatePicker
     lateinit var playerNationality : TextField
-    lateinit var playerList : ListView<String>
+    lateinit var playerList : ListView<Player>
     lateinit var updateLeagueButton: Button
     lateinit var updateClubButton: Button
     lateinit var playerNameLabel: Label
@@ -52,6 +52,7 @@ class MainController {
     lateinit var playerNumLabel: Label
     lateinit var playerNationalityLabel: Label
     lateinit var updatePlayerButton: Button
+    lateinit var positionBox : TextField
 
 
     @FXML
@@ -73,7 +74,7 @@ class MainController {
         mainList.onMouseClicked = EventHandler { event ->
             if(mainList.selectionModel.selectedItem == null) return@EventHandler
             val league = leagues.find { l ->
-                l.toString().equals(mainList.selectionModel.selectedItem, ignoreCase = true) }
+                l.uid == mainList.selectionModel.selectedItem.uid }
             if(event.clickCount == 1){
                 if(league != null) {
                     selectedLeague = league
@@ -99,7 +100,7 @@ class MainController {
         //Opening club code
         clubList.onMouseClicked = EventHandler { event ->
             if(clubList.selectionModel.selectedItem == null) return@EventHandler
-            val club = selectedLeague?.searchClub(clubList.selectionModel.selectedItem)
+            val club = selectedLeague?.getClub(clubList.selectionModel.selectedItem.uid)
             if(event.clickCount == 1){
                 if(club != null) {
                     selectedClub = club
@@ -125,7 +126,7 @@ class MainController {
         }
         playerList.onMouseClicked = EventHandler {event ->
             if(playerList.selectionModel.selectedItem == null) return@EventHandler
-            val player = selectedClub?.searchPlayer(playerList.selectionModel.selectedItem)
+            val player = selectedClub?.getPlayer(playerList.selectionModel.selectedItem.uid)
             if(event.clickCount == 1){
                     selectedPlayer = player
                     playerName.text = player?.name
@@ -147,6 +148,12 @@ class MainController {
                     playerPane.isVisible = true
 
                 }
+            }
+        }
+
+        positionList.onKeyPressed = EventHandler { event ->
+            if (event.code == KeyCode.BACK_SPACE || event.code == KeyCode.DELETE) {
+                removePosition()
             }
         }
     }
@@ -178,7 +185,7 @@ class MainController {
         val newLeague = League(leagueName.text, leagueNation.text)
         leagues.add(newLeague)
 
-        mainList.items.add(newLeague.toString())
+        mainList.items.add(newLeague)
 
         leagueName.text = ""
         leagueNation.text = ""
@@ -186,24 +193,24 @@ class MainController {
 
     private fun removeLeague() {
         val selectedLeague = mainList.selectionModel.selectedItem
-        val league = leagues.find { it.toString() == selectedLeague }
+        val league = leagues.find { it.uid == selectedLeague.uid}
         leagues.remove(league)
         mainList.items.remove(selectedLeague)
     }
 
     fun updateLeague(){
         val selectedLeague = mainList.selectionModel.selectedItem
-        val league = leagues.find { it.toString() == selectedLeague }
+        val league = leagues.find { it.uid == selectedLeague.uid }
         league?.name = leagueName.text ?: league?.name!!
         league?.country = leagueNation.text ?: league?.country!!
-        mainList.items[mainList.selectionModel.selectedIndex] = league.toString()
+        mainList.items[mainList.selectionModel.selectedIndex] = league
         leagues[mainList.selectionModel.selectedIndex] = league!!
     }
 
     private fun openLeague(league: League){
         mainPane.isVisible = false
         if(league.listClubs().isNotEmpty()) {
-            clubList.items = league.listClubs().split("\n").toObservable();
+            clubList.items = league.clubs.toObservable()
         }
         else{
             clubList.items.clear()
@@ -219,7 +226,7 @@ class MainController {
         val clubExists = selectedLeague?.containsClub(clubName.text)
         if(clubExists!!) throw Exception("Club already exists")
         selectedLeague?.addClub(clubName.text, clubCity.text, clubStadium.text)
-        clubList.items.add(selectedLeague?.searchClub(clubName.text).toString())
+        clubList.items.add(selectedLeague?.searchClub(clubName.text))
         clubName.text = ""
         clubCity.text = ""
         clubStadium.text = ""
@@ -227,18 +234,18 @@ class MainController {
 
     fun removeClub(){
         val selectedClub = clubList.selectionModel.selectedItem
-        val club = selectedLeague?.searchClub(selectedClub)
+        val club = selectedLeague?.getClub(selectedClub.uid)
         selectedLeague?.removeClub(club!!)
         clubList.items.remove(selectedClub)
     }
 
     fun updateClub(){
         val selectedClub = clubList.selectionModel.selectedItem
-        val club = selectedLeague?.searchClub(selectedClub)
+        val club = selectedLeague?.getClub(selectedClub.uid)
         club?.name = clubName.text ?: club?.name!!
         club?.city = clubCity.text ?: club?.city!!
         club?.stadium = clubStadium.text ?: club?.stadium!!
-        clubList.items[clubList.selectionModel.selectedIndex] = club.toString()
+        clubList.items[clubList.selectionModel.selectedIndex] = club
         selectedLeague?.replaceClub(clubList.selectionModel.selectedIndex, club!!)
 
     }
@@ -246,7 +253,7 @@ class MainController {
     private fun openClub(club: Club){
         leaguePane.isVisible = false
         if(club.listPlayers().isNotEmpty()){
-        playerList.items = club.listPlayers().split("\n").toObservable();
+        playerList.items = club.players.toObservable()
         }
         else{
             playerList.items.clear()
@@ -262,7 +269,7 @@ class MainController {
         if(playerExists != null) throw Exception("Player already exists")
         val dob = playerDOB.value
         selectedClub?.addPlayer(playerName.text, dob,playerPosition.text, playerNationality.text, playerNumber.text.toInt())
-        playerList.items.add(selectedClub?.searchPlayer(playerName.text).toString())
+        playerList.items.add(selectedClub?.searchPlayer(playerName.text))
         playerName.text = ""
         playerPosition.text = ""
         playerNationality.text = ""
@@ -273,7 +280,7 @@ class MainController {
 
     fun removePlayer(){
         val selectedPlayer = playerList.selectionModel.selectedItem
-        val player = selectedClub?.searchPlayer(selectedPlayer)
+        val player = selectedClub?.getPlayer(selectedPlayer.uid)
         selectedClub?.removePlayer(player!!)
         playerList.items.remove(selectedPlayer)
     }
@@ -286,7 +293,7 @@ class MainController {
         val newNationality = playerNationality.text ?: selectedPlayer?.nationality
         val newNumber = playerNumber.text ?: selectedPlayer?.number.toString()
         selectedClub?.replacePlayer(playerList.selectionModel.selectedIndex, newName, newDOB, newPosition, newNationality!!, newNumber.toInt())
-        playerList.items[playerList.selectionModel.selectedIndex] = selectedClub?.getPlayer(playerList.selectionModel.selectedIndex).toString()
+        playerList.items[playerList.selectionModel.selectedIndex] = selectedClub?.getPlayer(playerList.selectionModel.selectedItem.uid)
 
     }
 
@@ -295,6 +302,20 @@ class MainController {
         //Use GSON to save the array to a file
         val jsonArray = Gson().toJson(leagues)
         file.writeText(jsonArray)
+    }
+
+    fun addPosition(){
+        val position = positionBox.text
+        if(position.isNotEmpty()){
+            positionList.items.add(position)
+            selectedPlayer?.addPosition(position)
+        }
+    }
+
+    private fun removePosition(){
+        val position = positionList.selectionModel.selectedItem
+        positionList.items.remove(position)
+        selectedPlayer?.removePosition(position)
     }
 
     fun load(){
@@ -306,7 +327,7 @@ class MainController {
         mainList.items.clear()
         leagues.addAll(leaguesArray)
         leagues.forEach { league ->
-            mainList.items.add(league.toString())
+            mainList.items.add(league)
         }
         clubPane.isVisible = false
         playerPane.isVisible = false

@@ -68,7 +68,7 @@
             <Label fx:id="clubStadiumLabel" alignment="CENTER" layoutX="80.0" layoutY="172.0" prefHeight="17.0" prefWidth="160.0" text="Label" />
             <TextField fx:id="playerNumber" layoutX="421.0" layoutY="170.0" />
             <Label fx:id="leagueNameLabel112" alignment="CENTER" layoutX="637.0" layoutY="59.0" prefHeight="17.0" prefWidth="113.0" text="Player  DOB" />
-            <DatePicker fx:id="playerDOB" layoutX="600.0" layoutY="76.0" promptText="01/01/2000" />
+            <DatePicker fx:id="playerDOB" layoutX="600.0" layoutY="76.0" promptText="DD/MM/YYYY" />
             <Button layoutX="662.0" layoutY="122.0" mnemonicParsing="false" onAction="#addPlayer" prefHeight="25.0" prefWidth="64.0" text="Add" />
             <Label fx:id="leagueNameLabel11111" alignment="CENTER_RIGHT" layoutX="295.0" layoutY="174.0" prefHeight="17.0" prefWidth="113.0" text="Player Number" />
             <Button fx:id="updatePlayerButton" layoutX="661.0" layoutY="158.0" mnemonicParsing="false" onAction="#updatePlayer" prefHeight="25.0" prefWidth="64.0" text="Update" />
@@ -82,11 +82,11 @@
             <Label fx:id="playerDOBLabel" alignment="CENTER" layoutX="143.0" layoutY="108.0" prefHeight="17.0" prefWidth="160.0" text="Label" />
             <Label alignment="CENTER" layoutX="364.0" layoutY="229.0" prefHeight="17.0" prefWidth="64.0" text="Positions" />
             <Separator layoutX="95.0" layoutY="150.0" prefHeight="11.0" prefWidth="544.0" />
-            <Button layoutX="499.0" layoutY="183.0" mnemonicParsing="false" onAction="#addPlayer" prefHeight="25.0" prefWidth="64.0" text="Add" />
+            <Button layoutX="499.0" layoutY="183.0" mnemonicParsing="false" onAction="#addPosition" prefHeight="25.0" prefWidth="64.0" text="Add" />
             <Button layoutX="13.0" layoutY="13.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
             <Label fx:id="playerNationalityLabel" alignment="CENTER" layoutX="451.0" layoutY="108.0" prefHeight="17.0" prefWidth="160.0" text="Label" />
             <Label fx:id="leagueNameLabel1121" alignment="CENTER_RIGHT" layoutX="171.0" layoutY="187.0" prefHeight="17.0" prefWidth="113.0" text="New Position" />
-            <TextField layoutX="296.0" layoutY="183.0" />
+            <TextField fx:id="positionBox" layoutX="296.0" layoutY="183.0" />
             <Label fx:id="playerNumLabel" alignment="CENTER" layoutX="451.0" layoutY="71.0" prefHeight="17.0" prefWidth="160.0" text="Label" />
             <ListView fx:id="positionList" layoutX="11.0" layoutY="258.0" prefHeight="296.0" prefWidth="772.0" />
          </children>
