@@ -3,7 +3,8 @@ package org.setu
 class League (
     var name: String,
     var country: String,
-    private var clubs: MutableList<Club> = ArrayList()
+    private var clubs: MutableList<Club> = ArrayList(),
+    val uid: String = java.util.UUID.randomUUID().toString()
 ) {
 
         fun addClub(name: String, city: String, stadium: String) {
@@ -29,6 +30,10 @@ class League (
         }
         fun searchClub(name: String): Club? {
             return clubs.find { it.name.equals(name, ignoreCase = true) || it.toString().equals(name, ignoreCase = true)}
+        }
+
+        fun replaceClub(index: Int, club: Club){
+            clubs[index] = club
         }
 
 

@@ -3,16 +3,15 @@ package org.setu.controller
 import com.google.gson.Gson
 import javafx.event.EventHandler
 import javafx.fxml.FXML
-import javafx.scene.control.DatePicker
-import javafx.scene.control.Label
-import javafx.scene.control.ListView
-import javafx.scene.control.TextField
+import javafx.scene.control.*
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.Pane
 import org.setu.Club
 import org.setu.League
+import org.setu.Player
 import tornadofx.*
 import java.io.File
+import java.time.LocalDate
 import javax.json.JsonArray
 
 
@@ -20,10 +19,12 @@ class MainController {
     private val leagues = mutableListOf<League>()
     private var selectedLeague: League? = null
     private var selectedClub: Club? = null
+    private var selectedPlayer: Player? = null
 
     @FXML
     lateinit var mainList: ListView<String>
     lateinit var clubList : ListView<String>
+    lateinit var positionList : ListView<String>
     lateinit var leagueName: TextField
     lateinit var leagueNation : TextField
     lateinit var mainPane: Pane
@@ -34,6 +35,7 @@ class MainController {
     lateinit var clubCity: TextField
     lateinit var clubStadium: TextField
     lateinit var clubPane: Pane
+    lateinit var playerPane : Pane
     lateinit var clubNameLabel: Label
     lateinit var clubCityLabel: Label
     lateinit var clubStadiumLabel: Label
@@ -43,6 +45,13 @@ class MainController {
     lateinit var playerDOB : DatePicker
     lateinit var playerNationality : TextField
     lateinit var playerList : ListView<String>
+    lateinit var updateLeagueButton: Button
+    lateinit var updateClubButton: Button
+    lateinit var playerNameLabel: Label
+    lateinit var playerDOBLabel: Label
+    lateinit var playerNumLabel: Label
+    lateinit var playerNationalityLabel: Label
+    lateinit var updatePlayerButton: Button
 
 
     @FXML
@@ -50,6 +59,8 @@ class MainController {
         mainPane.isVisible = true
         leaguePane.isVisible = false
         clubPane.isVisible = false
+        playerPane.isVisible = false
+
 
         //Deleting from list code
         mainList.onKeyPressed = javafx.event.EventHandler { event ->
@@ -60,9 +71,18 @@ class MainController {
 
         //Opening league code
         mainList.onMouseClicked = EventHandler { event ->
-            if (event.clickCount == 2) {
-                val league = leagues.find { l ->
-                    l.toString().equals(mainList.selectionModel.selectedItem, ignoreCase = true) }
+            if(mainList.selectionModel.selectedItem == null) return@EventHandler
+            val league = leagues.find { l ->
+                l.toString().equals(mainList.selectionModel.selectedItem, ignoreCase = true) }
+            if(event.clickCount == 1){
+                if(league != null) {
+                    selectedLeague = league
+                    leagueName.text = league.name
+                    leagueNation.text = league.country
+                    updateLeagueButton.isDisable = false
+                }
+            }
+            else if (event.clickCount == 2) {
                 if(league != null) {
                     selectedLeague = league
                     openLeague(league)
@@ -78,11 +98,54 @@ class MainController {
         }
         //Opening club code
         clubList.onMouseClicked = EventHandler { event ->
-            if (event.clickCount == 2) {
-                val club = selectedLeague?.searchClub(clubList.selectionModel.selectedItem)
+            if(clubList.selectionModel.selectedItem == null) return@EventHandler
+            val club = selectedLeague?.searchClub(clubList.selectionModel.selectedItem)
+            if(event.clickCount == 1){
+                if(club != null) {
+                    selectedClub = club
+                    clubName.text = club.name
+                    clubCity.text = club.city
+                    clubStadium.text = club.stadium
+                    updateClubButton.isDisable = false
+                }
+            }
+            else if (event.clickCount == 2) {
+
                 if(club != null) {
                     selectedClub = club
                     openClub(club)
+                }
+            }
+        }
+
+        playerList.onKeyPressed = EventHandler { event ->
+            if (event.code == KeyCode.BACK_SPACE || event.code == KeyCode.DELETE) {
+                removePlayer()
+            }
+        }
+        playerList.onMouseClicked = EventHandler {event ->
+            if(playerList.selectionModel.selectedItem == null) return@EventHandler
+            val player = selectedClub?.searchPlayer(playerList.selectionModel.selectedItem)
+            if(event.clickCount == 1){
+                    selectedPlayer = player
+                    playerName.text = player?.name
+                    playerPosition.text = player?.positions?.get(0)
+                    playerNationality.text = player?.nationality
+                    playerNumber.text = player?.number.toString()
+                    playerDOB.value = player?.dateOfBirth
+                    playerNumber.text = player?.number.toString()
+                    updatePlayerButton.isDisable = false
+            }else if(event.clickCount == 2){
+                if(player!=null){
+                    clubPane.isVisible = false
+                    selectedPlayer = player
+                    playerNameLabel.text = player.name
+                    playerDOBLabel.text = player.dateOfBirth.toString()
+                    playerNumLabel.text = player.number.toString()
+                    playerNationalityLabel.text = player.nationality
+                    positionList.items = player.positions.toObservable()
+                    playerPane.isVisible = true
+
                 }
             }
         }
@@ -92,10 +155,19 @@ class MainController {
         if(leaguePane.isVisible){
             leaguePane.isVisible = false
             mainPane.isVisible = true
+            selectedLeague = null
+            updateLeagueButton.isDisable = true
         }
         else if(clubPane.isVisible){
             clubPane.isVisible = false
             leaguePane.isVisible = true
+            selectedClub = null
+            updateClubButton.isDisable = true
+        }else if(playerPane.isVisible){
+            playerPane.isVisible = false
+            clubPane.isVisible = true
+            selectedPlayer = null
+            updatePlayerButton.isDisable = true
         }
     }
 
@@ -119,10 +191,23 @@ class MainController {
         mainList.items.remove(selectedLeague)
     }
 
+    fun updateLeague(){
+        val selectedLeague = mainList.selectionModel.selectedItem
+        val league = leagues.find { it.toString() == selectedLeague }
+        league?.name = leagueName.text ?: league?.name!!
+        league?.country = leagueNation.text ?: league?.country!!
+        mainList.items[mainList.selectionModel.selectedIndex] = league.toString()
+        leagues[mainList.selectionModel.selectedIndex] = league!!
+    }
+
     private fun openLeague(league: League){
-        println("Opening league ${league.name}")
         mainPane.isVisible = false
-        clubList.items = league.listClubs().split("\n").toObservable();
+        if(league.listClubs().isNotEmpty()) {
+            clubList.items = league.listClubs().split("\n").toObservable();
+        }
+        else{
+            clubList.items.clear()
+        }
         leagueNameLabel.text = league.name
         leagueNationLabel.text = league.country
         leaguePane.isVisible = true
@@ -147,10 +232,25 @@ class MainController {
         clubList.items.remove(selectedClub)
     }
 
-    fun openClub(club: Club){
-        println("Opening club ${club.name}")
+    fun updateClub(){
+        val selectedClub = clubList.selectionModel.selectedItem
+        val club = selectedLeague?.searchClub(selectedClub)
+        club?.name = clubName.text ?: club?.name!!
+        club?.city = clubCity.text ?: club?.city!!
+        club?.stadium = clubStadium.text ?: club?.stadium!!
+        clubList.items[clubList.selectionModel.selectedIndex] = club.toString()
+        selectedLeague?.replaceClub(clubList.selectionModel.selectedIndex, club!!)
+
+    }
+
+    private fun openClub(club: Club){
         leaguePane.isVisible = false
+        if(club.listPlayers().isNotEmpty()){
         playerList.items = club.listPlayers().split("\n").toObservable();
+        }
+        else{
+            playerList.items.clear()
+        }
         clubNameLabel.text = club.name
         clubCityLabel.text = club.city
         clubStadiumLabel.text = club.stadium
@@ -160,8 +260,33 @@ class MainController {
     fun addPlayer(){
         val playerExists = selectedClub?.searchPlayer(playerName.text)
         if(playerExists != null) throw Exception("Player already exists")
-        selectedClub?.addPlayer(playerName.text, playerDOB.value,playerPosition.text, playerNationality.text, playerNumber.text.toInt())
+        val dob = playerDOB.value
+        selectedClub?.addPlayer(playerName.text, dob,playerPosition.text, playerNationality.text, playerNumber.text.toInt())
         playerList.items.add(selectedClub?.searchPlayer(playerName.text).toString())
+        playerName.text = ""
+        playerPosition.text = ""
+        playerNationality.text = ""
+        playerNumber.text = ""
+        playerDOB.value = null
+
+    }
+
+    fun removePlayer(){
+        val selectedPlayer = playerList.selectionModel.selectedItem
+        val player = selectedClub?.searchPlayer(selectedPlayer)
+        selectedClub?.removePlayer(player!!)
+        playerList.items.remove(selectedPlayer)
+    }
+
+    fun updatePlayer(){
+        //Either replace or leave the same if empty
+        val newName = playerName.text ?: selectedPlayer?.name!!
+        val newDOB = playerDOB.value ?: selectedPlayer?.dateOfBirth!!
+        val newPosition = playerPosition.text ?: selectedPlayer?.positions?.get(0)!!
+        val newNationality = playerNationality.text ?: selectedPlayer?.nationality
+        val newNumber = playerNumber.text ?: selectedPlayer?.number.toString()
+        selectedClub?.replacePlayer(playerList.selectionModel.selectedIndex, newName, newDOB, newPosition, newNationality!!, newNumber.toInt())
+        playerList.items[playerList.selectionModel.selectedIndex] = selectedClub?.getPlayer(playerList.selectionModel.selectedIndex).toString()
 
     }
 
@@ -183,5 +308,9 @@ class MainController {
         leagues.forEach { league ->
             mainList.items.add(league.toString())
         }
+        clubPane.isVisible = false
+        playerPane.isVisible = false
+        leaguePane.isVisible = false
+        mainPane.isVisible = true
     }
 }

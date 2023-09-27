@@ -8,7 +8,9 @@ class Club (
     var name: String,
     var city: String,
     var stadium: String,
-    private val players: MutableList<Player> = ArrayList()
+    private val players: MutableList<Player> = ArrayList(),
+    val uid: String = UUID.randomUUID().toString()
+
 ) {
 
     fun addPlayer(name: String, dateOfBirth : LocalDate, position: String, nationality: String, number : Int) {
@@ -41,7 +43,7 @@ class Club (
         return players[index]
     }
     fun searchPlayer(name: String): Player? {
-        return players.find { it.name.equals(name, ignoreCase = true) }
+        return players.find { it.name.equals(name, ignoreCase = true) || it.toString().equals(name, ignoreCase = true)}
     }
 
     override fun toString(): String {

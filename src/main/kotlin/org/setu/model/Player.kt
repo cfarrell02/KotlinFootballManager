@@ -7,7 +7,8 @@ data class Player(
     val dateOfBirth: LocalDate,
     val positions: List<String> = emptyList(),
     val nationality: String,
-    val number : Int
+    val number : Int,
+    val uid: String = java.util.UUID.randomUUID().toString()
 ) {
     constructor(name: String, dateOfBirth: LocalDate, position: String, nationality: String, number : Int) :
             this(name, dateOfBirth, listOf(position), nationality, number)
