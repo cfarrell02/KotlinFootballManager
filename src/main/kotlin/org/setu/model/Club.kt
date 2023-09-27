@@ -11,16 +11,16 @@ class Club (
     private val players: MutableList<Player> = ArrayList()
 ) {
 
-    fun addPlayer(name: String, dateOfBirth : LocalDate, position: String, nationality: String) {
-        val player = Player(name,dateOfBirth,position ,nationality)
+    fun addPlayer(name: String, dateOfBirth : LocalDate, position: String, nationality: String, number : Int) {
+        val player = Player(name,dateOfBirth,position ,nationality, number)
         players.add(player)
     }
     fun removePlayer(player: Player) {
         players.remove(player)
     }
 
-    fun replacePlayer(index: Int, name: String, dateOfBirth : LocalDate, position: String, nationality: String){
-        val player = Player(name,dateOfBirth,position ,nationality)
+    fun replacePlayer(index: Int, name: String, dateOfBirth : LocalDate, position: String, nationality: String, number : Int){
+        val player = Player(name,dateOfBirth,position ,nationality, number)
         players[index] = player
     }
     fun removePlayer(index: Int) {
@@ -42,6 +42,10 @@ class Club (
     }
     fun searchPlayer(name: String): Player? {
         return players.find { it.name.equals(name, ignoreCase = true) }
+    }
+
+    override fun toString(): String {
+        return "$name, $city, $stadium"
     }
 
 }

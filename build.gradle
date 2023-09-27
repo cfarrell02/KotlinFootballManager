@@ -22,6 +22,7 @@ javafx {
 dependencies {
     implementation "no.tornado:tornadofx:$tornadofx_version"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
+    implementation "com.google.code.gson:gson:2.10.1"
 }
 
 compileKotlin {

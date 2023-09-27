@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox
 import tornadofx.*
 
 
-class MainView : View("My View") {
+class MainView : View("League Manager") {
     override val root: Pane = FXMLLoader.load<Pane>(javaClass.getResource("/fxml/MainView.fxml"))
 }
+
+

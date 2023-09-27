@@ -28,8 +28,10 @@ class League (
             return clubs[index]
         }
         fun searchClub(name: String): Club? {
-            return clubs.find { it.name.equals(name, ignoreCase = true) }
+            return clubs.find { it.name.equals(name, ignoreCase = true) || it.toString().equals(name, ignoreCase = true)}
         }
+
+
 
         fun containsClub(name: String): Boolean {
             return clubs.any { it.name.equals(name, ignoreCase = true) }
