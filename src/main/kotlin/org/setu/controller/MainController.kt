@@ -384,10 +384,14 @@ class MainController {
     }
 
     fun save(){
+        try {
         val file = File("leagues.json")
         //Use GSON to save the array to a file
         val jsonArray = Gson().toJson(leagues)
         file.writeText(jsonArray)
+        }catch (e: Exception){
+            AlertBox.display("Error", "Error saving file \n ${e.message}")
+        }
     }
 
     fun addPosition(){
@@ -405,6 +409,7 @@ class MainController {
     }
 
     fun load(){
+        try{
         val file = File("leagues.json")
         //Use GSON to load the array from a file
         val jsonArray = file.readText()
@@ -419,6 +424,9 @@ class MainController {
         playerPane.isVisible = false
         leaguePane.isVisible = false
         mainPane.isVisible = true
+        }catch (e: Exception){
+            AlertBox.display("Error", "Error loading file \n ${e.message}")
+        }
     }
 
     fun openSearch(){
