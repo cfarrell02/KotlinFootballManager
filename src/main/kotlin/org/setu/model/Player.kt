@@ -1,4 +1,4 @@
-package org.setu
+package org.setu.model
 
 import java.time.LocalDate
 
@@ -13,6 +13,14 @@ data class Player(
     constructor(name: String, dateOfBirth: LocalDate, position: String, nationality: String, number : Int) :
             this(name, dateOfBirth, mutableListOf(position), nationality, number)
 
+
+    init{
+        //Validation here
+        require(name.isNotBlank()){"Name cannot be blank"}
+        require(dateOfBirth.isBefore(LocalDate.now())){"Date of birth cannot be in the future"}
+        require(positions.isNotEmpty()){"Player must have at least one position"}
+        require(number > 0){"Number must be greater than 0"}
+    }
     override fun toString(): String {
         return "$name, $dateOfBirth, ${positions.joinToString()}, Number: $number, $nationality"
     }

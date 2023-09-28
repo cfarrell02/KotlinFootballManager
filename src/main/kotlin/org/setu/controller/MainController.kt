@@ -6,11 +6,15 @@ import javafx.fxml.FXML
 import javafx.scene.control.*
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.Pane
-import org.setu.Club
-import org.setu.League
-import org.setu.Player
+import javafx.stage.Screen
+import org.setu.model.Club
+import org.setu.model.League
+import org.setu.model.Player
+import org.setu.view.AlertBox
 import tornadofx.*
 import java.io.File
+import java.time.LocalDate
+import java.util.LinkedList
 
 
 class MainController {
@@ -18,6 +22,7 @@ class MainController {
     private var selectedLeague: League? = null
     private var selectedClub: Club? = null
     private var selectedPlayer: Player? = null
+    private val screenList = LinkedList<Pane>()
 
     @FXML
     lateinit var mainList: ListView<League>
@@ -87,7 +92,6 @@ class MainController {
             }
             else if (event.clickCount == 2) {
                 if(league != null) {
-                    selectedLeague = league
                     openLeague(league)
                 }
             }
@@ -115,7 +119,6 @@ class MainController {
             else if (event.clickCount == 2) {
 
                 if(club != null) {
-                    selectedClub = club
                     openClub(club)
                 }
             }
@@ -140,15 +143,7 @@ class MainController {
                     updatePlayerButton.isDisable = false
             }else if(event.clickCount == 2){
                 if(player!=null){
-                    clubPane.isVisible = false
-                    selectedPlayer = player
-                    playerNameLabel.text = player.name
-                    playerDOBLabel.text = player.dateOfBirth.toString()
-                    playerNumLabel.text = player.number.toString()
-                    playerNationalityLabel.text = player.nationality
-                    positionList.items = player.positions.toObservable()
-                    playerPane.isVisible = true
-
+                    openPlayer(player)
                 }
             }
         }
@@ -158,33 +153,35 @@ class MainController {
                 removePosition()
             }
         }
+
+        //Search list code
+        resultList.onMouseClicked = EventHandler{ event ->
+            if(event.clickCount == 2){
+                when(val selectedResult = resultList.selectionModel.selectedItem){
+                    is League -> openLeague(selectedResult, searchPane)
+                    is Club -> openClub(selectedResult, searchPane)
+                    is Player -> openPlayer(selectedResult, searchPane)
+                    else -> throw Exception("Unknown type")
+                }
+            }
+        }
     }
     fun goBack(){
-        //Generic go back function
-        if(leaguePane.isVisible || searchPane.isVisible){
-            searchPane.isVisible = false
-            leaguePane.isVisible = false
-            mainPane.isVisible = true
-            selectedLeague = null
-            updateLeagueButton.isDisable = true
-        }
-        else if(clubPane.isVisible){
-            clubPane.isVisible = false
-            leaguePane.isVisible = true
-            selectedClub = null
-            updateClubButton.isDisable = true
-        }else if(playerPane.isVisible){
-            playerPane.isVisible = false
-            clubPane.isVisible = true
-            selectedPlayer = null
-            updatePlayerButton.isDisable = true
+        val panes = listOf(mainPane, leaguePane, clubPane, playerPane, searchPane)
+        panes.forEach{it.isVisible = false}
+        if(screenList.isNotEmpty()){
+            val pane = screenList.pop()
+            pane.isVisible = true
         }
     }
 
     //League Code
     fun addLeague() {
+        try{
         val leagueExists = leagues.any { it.toString().equals(leagueName.text, ignoreCase = true) }
         if(leagueExists) throw Exception("League already exists")
+        require(leagueName.text.isNotBlank()){"Name cannot be blank"}
+        require(leagueNation.text.isNotBlank()){"Nation cannot be blank"}
         val newLeague = League(leagueName.text, leagueNation.text)
         leagues.add(newLeague)
 
@@ -192,26 +189,43 @@ class MainController {
 
         leagueName.text = ""
         leagueNation.text = ""
+        }catch (e: Exception){
+            AlertBox.display("Error", e.message)
+        }
     }
 
     private fun removeLeague() {
+        try{
+        if(!AlertBox.displayConfirmation("Delete League", "Are you sure you want to delete this league?", "This will delete all clubs and players in this league"))
+            return
         val selectedLeague = mainList.selectionModel.selectedItem
         val league = leagues.find { it.uid == selectedLeague.uid}
         leagues.remove(league)
         mainList.items.remove(selectedLeague)
+        }catch (e: Exception){
+            AlertBox.display("Error", e.message)
+        }
     }
 
     fun updateLeague(){
+        try{
         val selectedLeague = mainList.selectionModel.selectedItem
         val league = leagues.find { it.uid == selectedLeague.uid }
-        league?.name = leagueName.text ?: league?.name!!
-        league?.country = leagueNation.text ?: league?.country!!
+        require(league != null){"League does not exist"}
+        league.name = leagueName.text ?: league.name
+        league.country = leagueNation.text ?: league.country
         mainList.items[mainList.selectionModel.selectedIndex] = league
-        leagues[mainList.selectionModel.selectedIndex] = league!!
+        leagues[mainList.selectionModel.selectedIndex] = league
+        }catch (e: Exception){
+            AlertBox.display("Error", e.message)
+        }
     }
 
-    private fun openLeague(league: League){
-        mainPane.isVisible = false
+    private fun openLeague(league: League, currentPane : Pane = mainPane){
+        try{
+        currentPane.isVisible = false
+        screenList.push(currentPane)
+        selectedLeague = league
         if(league.listClubs().isNotEmpty()) {
             clubList.items = league.clubs.toObservable()
         }
@@ -221,40 +235,64 @@ class MainController {
         leagueNameLabel.text = league.name
         leagueNationLabel.text = league.country
         leaguePane.isVisible = true
+        }catch (e: Exception){
+            AlertBox.display("Error", "Error opening league \n ${e.message}")
+        }
     }
 
     // Club Code
 
     fun addClub(){
+        try{
         val clubExists = selectedLeague?.containsClub(clubName.text)
         if(clubExists!!) throw Exception("Club already exists")
+        require(clubName.text.isNotBlank()){"Name cannot be blank"}
+        require(clubCity.text.isNotBlank()){"City cannot be blank"}
+        require(clubStadium.text.isNotBlank()){"Stadium cannot be blank"}
         selectedLeague?.addClub(clubName.text, clubCity.text, clubStadium.text)
         clubList.items.add(selectedLeague?.searchClub(clubName.text))
         clubName.text = ""
         clubCity.text = ""
         clubStadium.text = ""
+        }catch (e: Exception){
+            AlertBox.display("Error", e.message)
+        }
     }
 
-    fun removeClub(){
+    private fun removeClub(){
+        try{
+        if(!AlertBox.displayConfirmation("Delete Club", "Are you sure you want to delete this club?", "This will delete all players in this club"))
+            return
         val selectedClub = clubList.selectionModel.selectedItem
         val club = selectedLeague?.getClub(selectedClub.uid)
         selectedLeague?.removeClub(club!!)
         clubList.items.remove(selectedClub)
+        }catch (e: Exception){
+            AlertBox.display("Error", e.message)
+        }
     }
 
     fun updateClub(){
+        try{
         val selectedClub = clubList.selectionModel.selectedItem
         val club = selectedLeague?.getClub(selectedClub.uid)
-        club?.name = clubName.text ?: club?.name!!
-        club?.city = clubCity.text ?: club?.city!!
-        club?.stadium = clubStadium.text ?: club?.stadium!!
+        require(club != null){"Club does not exist"}
+        club.name = clubName.text ?: club.name
+        club.city = clubCity.text ?: club.city
+        club.stadium = clubStadium.text ?: club.stadium
         clubList.items[clubList.selectionModel.selectedIndex] = club
-        selectedLeague?.replaceClub(clubList.selectionModel.selectedIndex, club!!)
+        selectedLeague?.replaceClub(clubList.selectionModel.selectedIndex, club)
+        }catch (e: Exception){
+            AlertBox.display("Error", e.message)
+        }
 
     }
 
-    private fun openClub(club: Club){
-        leaguePane.isVisible = false
+    private fun openClub(club: Club, currentPane : Pane = leaguePane){
+        try{
+        currentPane.isVisible = false
+        screenList.push(currentPane)
+        selectedClub = club
         if(club.listPlayers().isNotEmpty()){
         playerList.items = club.players.toObservable()
         }
@@ -265,12 +303,21 @@ class MainController {
         clubCityLabel.text = club.city
         clubStadiumLabel.text = club.stadium
         clubPane.isVisible = true
+        }catch (e: Exception){
+            AlertBox.display("Error", "Error opening club \n ${e.message}")
+        }
     }
 
     fun addPlayer(){
+        try{
         val playerExists = selectedClub?.searchPlayer(playerName.text)
         if(playerExists != null) throw Exception("Player already exists")
         val dob = playerDOB.value
+        require(dob > LocalDate.now()){"Date of birth cannot be in the future"}
+        require(playerName.text.isNotBlank()){"Name cannot be blank"}
+        require(playerPosition.text.isNotBlank()){"Position cannot be blank"}
+        require(playerNationality.text.isNotBlank()){"Nationality cannot be blank"}
+        require(playerNumber.text.toInt() > 0){"Number must be greater than 0"}
         selectedClub?.addPlayer(playerName.text, dob,playerPosition.text, playerNationality.text, playerNumber.text.toInt())
         playerList.items.add(selectedClub?.searchPlayer(playerName.text))
         playerName.text = ""
@@ -278,26 +325,60 @@ class MainController {
         playerNationality.text = ""
         playerNumber.text = ""
         playerDOB.value = null
+        }catch (e: Exception){
+            AlertBox.display("Error", e.message)
+        }
 
     }
 
     private fun removePlayer(){
+        try{
+        if(!AlertBox.displayConfirmation("Delete Player", "Are you sure you want to delete this player?", "This will delete this player"))
+            return
         val selectedPlayer = playerList.selectionModel.selectedItem
         val player = selectedClub?.getPlayer(selectedPlayer.uid)
         selectedClub?.removePlayer(player!!)
         playerList.items.remove(selectedPlayer)
+        }catch (e: Exception){
+            AlertBox.display("Error", e.message)
+        }
     }
 
     fun updatePlayer(){
         //Either replace or leave the same if empty
-        val newName = playerName.text ?: selectedPlayer?.name!!
-        val newDOB = playerDOB.value ?: selectedPlayer?.dateOfBirth!!
-        val newPosition = playerPosition.text ?: selectedPlayer?.positions?.get(0)!!
-        val newNationality = playerNationality.text ?: selectedPlayer?.nationality
-        val newNumber = playerNumber.text ?: selectedPlayer?.number.toString()
-        selectedClub?.replacePlayer(playerList.selectionModel.selectedIndex, newName, newDOB, newPosition, newNationality!!, newNumber.toInt())
+        try{
+        val selectedPlayer = playerList.selectionModel.selectedItem
+        require(selectedPlayer != null){"Player does not exist"}
+        val newName = playerName.text ?: selectedPlayer.name
+        val newDOB = playerDOB.value ?: selectedPlayer.dateOfBirth
+        val newPosition = playerPosition.text ?: selectedPlayer.positions.get(0)
+        val newNationality = playerNationality.text ?: selectedPlayer.nationality
+        val newNumber = playerNumber.text ?: selectedPlayer.number.toString()
+        selectedClub?.replacePlayer(playerList.selectionModel.selectedIndex, newName, newDOB, newPosition, newNationality, newNumber.toInt())
         playerList.items[playerList.selectionModel.selectedIndex] = selectedClub?.getPlayer(playerList.selectionModel.selectedItem.uid)
+        }catch (e: Exception){
+            AlertBox.display("Error", e.message)
+        }
 
+    }
+
+    fun openPlayer(player: Player, currentPane : Pane = clubPane){
+        try{
+        currentPane.isVisible = false
+        screenList.push(currentPane)
+        selectedPlayer = player
+        clubPane.isVisible = false
+        searchPane.isVisible = false
+        selectedPlayer = player
+        playerNameLabel.text = player.name
+        playerDOBLabel.text = player.dateOfBirth.toString()
+        playerNumLabel.text = player.number.toString()
+        playerNationalityLabel.text = player.nationality
+        positionList.items = player.positions.toObservable()
+        playerPane.isVisible = true
+        }catch (e: Exception){
+            AlertBox.display("Error", "Error opening player \n ${e.message}")
+        }
     }
 
     fun save(){
@@ -339,6 +420,7 @@ class MainController {
     }
 
     fun openSearch(){
+        screenList.push(mainPane)
         searchPane.isVisible = true
         mainPane.isVisible = false
     }
@@ -347,7 +429,7 @@ class MainController {
         val searchTerm = searchBox.text
         val searchResults = ArrayList<Any>()
         //Big bulky inefficient triple nested loop
-        //Could I make this more efficient? Yes but I'm lazy and will not be doing that lmao
+        //Could I make this more efficient? Yes but i dont want to
         leagues.forEach { league ->
             if (league.toString().contains(searchTerm, ignoreCase = true)) {
                 searchResults.add(league)

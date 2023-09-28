@@ -1,4 +1,4 @@
-package org.setu
+package org.setu.model
 
 import java.time.LocalDate
 import java.util.*
@@ -12,6 +12,13 @@ class Club (
     val uid: String = UUID.randomUUID().toString()
 
 ) {
+
+    init{
+        //Validation here
+        require(name.isNotBlank()){"Name cannot be blank"}
+        require(city.isNotBlank()){"City cannot be blank"}
+        require(stadium.isNotBlank()){"Stadium cannot be blank"}
+    }
 
     fun addPlayer(name: String, dateOfBirth : LocalDate, position: String, nationality: String, number : Int) {
         val player = Player(name,dateOfBirth,position ,nationality, number)

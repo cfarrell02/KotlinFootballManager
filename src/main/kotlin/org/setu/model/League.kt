@@ -1,4 +1,4 @@
-package org.setu
+package org.setu.model
 
 class League (
     var name: String,
@@ -6,6 +6,15 @@ class League (
     val clubs: MutableList<Club> = ArrayList(),
     val uid: String = java.util.UUID.randomUUID().toString()
 ) {
+
+
+
+
+    init{
+        //Validation here
+        require(name.isNotBlank()){"Name cannot be blank"}
+        require(country.isNotBlank()){"Country cannot be blank"}
+    }
 
         fun addClub(name: String, city: String, stadium: String) {
             val club = Club(name,city,stadium)
