@@ -315,7 +315,7 @@ class MainController {
         val playerExists = selectedClub?.searchPlayer(playerName.text)
         if(playerExists != null) throw Exception("Player already exists")
         val dob = playerDOB.value
-        require(dob > LocalDate.now()){"Date of birth cannot be in the future"}
+        require(dob.isBefore(LocalDate.now())){"Date of birth must be before today"}
         require(playerName.text.isNotBlank()){"Name cannot be blank"}
         require(playerPosition.text.isNotBlank()){"Position cannot be blank"}
         require(playerNationality.text.isNotBlank()){"Nationality cannot be blank"}

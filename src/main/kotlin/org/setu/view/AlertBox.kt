@@ -27,5 +27,4 @@ object AlertBox {
         return result.get() == ButtonType.OK
     }
 
-    
 }
