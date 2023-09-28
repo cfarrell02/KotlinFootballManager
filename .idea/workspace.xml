@@ -10,14 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="321233bb-825e-4b27-b15f-4a5ce103599a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/tornadofx_gradle_project_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/view/AlertBox.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/controller/MainController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/controller/MainController.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Club.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Club.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/League.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/League.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Player.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Player.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/MainView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,6 +183,7 @@
       <workItem from="1695838463071" duration="3457000" />
       <workItem from="1695897449571" duration="1492000" />
       <workItem from="1695913657624" duration="4691000" />
+      <workItem from="1695925316650" duration="1652000" />
     </task>
     <servers />
   </component>
