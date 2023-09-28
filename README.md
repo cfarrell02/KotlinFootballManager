@@ -1,13 +1,37 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/zN0YBtu9)
-
 # setu-mad1-assignment-one
 
-# Setup Instructions
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/zN0YBtu9)
 
-Please fill in the following information and `commit` and `push`
+## About
 
-* Student Number: 20094046
-* Name: Cian Farrell
-* GitHub username: cfarrell02
+Welcome to my first assignment for the Mobile App Development course. This project is associated with the following details:
+
+* **Student Number:** 20094046
+* **Name:** Cian Farrell
+* **GitHub Username:** cfarrell02
+
+## League Manager™
+
+I'm excited to introduce my first kotlin application, **League Manager™**, a Kotlin-based application developed as part of my mobile app development journey. League Manager™ leverages the TornadoFX library, offering a user-friendly platform for managing sports leagues, clubs, and players. Here's what you can expect:
+
+### Key Features
+
+- **Entity Management**: Easily create and manage leagues, clubs, and players within the application.
+- **Intuitive Drill-Down**: Dive into detailed information with a user-friendly drill-down interface.
+- **Sleek GUI**: Enjoy a beautiful graphical user interface (GUI) created with TornadoFX.
+- **Persistent Storage**: Safeguard your data by saving it to a JSON file.
+- **Efficient Searching**: Quickly locate and access entities using the built-in search feature.
+- **Data Validation**: Ensure data integrity with built-in validation for all entities.
+- **Data Sorting**: Sort entities by name, date, and other attributes. - **to be implemented**
+- **Data Filtering**: Filter entities by name, date, and other attributes. - **to be implemented**
 
 
+## Getting Started
+
+To get started with League Manager™, simply download and run this application on your device, NOTE: You must have Java configured on your device to run this app. Explore and manage your sports-related data effortlessly with the provided GUI.
+
+
+
+
+
+Note: League Manager™ is not actually trademarked.
