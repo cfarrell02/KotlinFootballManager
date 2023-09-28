@@ -196,9 +196,10 @@ class MainController {
 
     private fun removeLeague() {
         try{
-        if(!AlertBox.displayConfirmation("Delete League", "Are you sure you want to delete this league?", "This will delete all clubs and players in this league"))
+            val selectedLeague = mainList.selectionModel.selectedItem
+        if(!AlertBox.displayConfirmation("Delete League", "Are you sure you want to delete this league?", "This will delete all clubs and players in ${selectedLeague.name}"))
             return
-        val selectedLeague = mainList.selectionModel.selectedItem
+
         val league = leagues.find { it.uid == selectedLeague.uid}
         leagues.remove(league)
         mainList.items.remove(selectedLeague)
@@ -261,9 +262,10 @@ class MainController {
 
     private fun removeClub(){
         try{
-        if(!AlertBox.displayConfirmation("Delete Club", "Are you sure you want to delete this club?", "This will delete all players in this club"))
-            return
         val selectedClub = clubList.selectionModel.selectedItem
+        if(!AlertBox.displayConfirmation("Delete Club", "Are you sure you want to delete this club?", "This will delete all players in ${selectedClub.name}"))
+            return
+
         val club = selectedLeague?.getClub(selectedClub.uid)
         selectedLeague?.removeClub(club!!)
         clubList.items.remove(selectedClub)
@@ -333,9 +335,9 @@ class MainController {
 
     private fun removePlayer(){
         try{
-        if(!AlertBox.displayConfirmation("Delete Player", "Are you sure you want to delete this player?", "This will delete this player"))
-            return
         val selectedPlayer = playerList.selectionModel.selectedItem
+        if(!AlertBox.displayConfirmation("Delete Player", "Are you sure you want to delete this player?", "This will delete ${selectedPlayer.name}"))
+            return
         val player = selectedClub?.getPlayer(selectedPlayer.uid)
         selectedClub?.removePlayer(player!!)
         playerList.items.remove(selectedPlayer)

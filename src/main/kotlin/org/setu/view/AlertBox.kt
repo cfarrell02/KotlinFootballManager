@@ -1,7 +1,10 @@
 package org.setu.view
 
+
 import javafx.scene.control.Alert
+
 import javafx.scene.control.ButtonType
+
 
 
 object AlertBox {
@@ -23,4 +26,6 @@ object AlertBox {
         val result = alert.showAndWait()
         return result.get() == ButtonType.OK
     }
+
+    
 }
