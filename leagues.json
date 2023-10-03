@@ -2,222 +2,179 @@
   {
     "name": "Premier League",
     "country": "England",
-    "clubs": [
-      {
-        "name": "Liverpool",
-        "city": "Liverpool",
-        "stadium": "Anfield",
-        "players": [
-          {
-            "name": "Alisson Becker",
-            "dateOfBirth": {
-              "year": 1992,
-              "month": 10,
-              "day": 2
-            },
-            "positions": [
-              "GK"
-            ],
-            "nationality": "Brazilian",
-            "number": 1,
-            "uid": "9a49d9ff-5c44-40a1-aa3b-c0bf7dbac485"
-          },
-          {
-            "name": "Sadio Mané",
-            "dateOfBirth": {
-              "year": 1992,
-              "month": 4,
-              "day": 10
-            },
-            "positions": [
-              "LW"
-            ],
-            "nationality": "Senegalese",
-            "number": 10,
-            "uid": "3e4a51c5-8adb-4eeb-97fe-624829948259"
-          },
-          {
-            "name": "Virgil van Dijk",
-            "dateOfBirth": {
-              "year": 1991,
-              "month": 7,
-              "day": 8
-            },
-            "positions": [
-              "CB"
-            ],
-            "nationality": "Dutch",
-            "number": 4,
-            "uid": "3e4a51c5-8adb-4eeb-97fe-624829948260"
-          }
-        ],
-        "uid": "c9207116-a2a9-46d6-85b4-f3c681da499d"
-      },
+    "_clubs": [
       {
         "name": "Manchester United",
         "city": "Manchester",
         "stadium": "Old Trafford",
-        "players": [
+        "_people": [
           {
-            "name": "Bruno Fernandes",
-            "dateOfBirth": {
-              "year": 1994,
-              "month": 9,
-              "day": 8
-            },
-            "positions": [
-              "CAM"
-            ],
-            "nationality": "Portuguese",
-            "number": 18,
-            "uid": "3e4a51c5-8adb-4eeb-97fe-624829948261"
+            "type": "Player",
+            "data": {
+              "_positions": [
+                "Forward",
+                "Midfield"
+              ],
+              "number": 10,
+              "name": "Marcus Rashford",
+              "dateOfBirth": {
+                "year": 1997,
+                "month": 10,
+                "day": 31
+              },
+              "nationality": "English",
+              "uid": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p"
+            }
           },
           {
-            "name": "Harry Maguire",
-            "dateOfBirth": {
-              "year": 1993,
-              "month": 3,
-              "day": 5
-            },
-            "positions": [
-              "CB"
-            ],
-            "nationality": "English",
-            "number": 5,
-            "uid": "3e4a51c5-8adb-4eeb-97fe-624829948262"
-          },
-          {
-            "name": "Marcus Rashford",
-            "dateOfBirth": {
-              "year": 1997,
-              "month": 10,
-              "day": 31
-            },
-            "positions": [
-              "LW"
-            ],
-            "nationality": "English",
-            "number": 10,
-            "uid": "3e4a51c5-8adb-4eeb-97fe-624829948263"
+            "type": "Staff",
+            "data": {
+              "role": "Manager",
+              "salary": 3000000.0,
+              "name": "Ole Gunnar Solskjaer",
+              "dateOfBirth": {
+                "year": 1973,
+                "month": 2,
+                "day": 26
+              },
+              "nationality": "Norwegian",
+              "uid": "aabbccdd-eeff-gghh-iijj-kkllmmnnoopp"
+            }
           }
         ],
-        "uid": "c9207116-a2a9-46d6-85b4-f3c681da499e"
+        "uid": "11111111-2222-3333-4444-555555555555"
+      },
+      {
+        "name": "Liverpool FC",
+        "city": "Liverpool",
+        "stadium": "Anfield",
+        "_people": [
+          {
+            "type": "Player",
+            "data": {
+              "_positions": [
+                "Forward",
+                "Winger"
+              ],
+              "number": 11,
+              "name": "Mohamed Salah",
+              "dateOfBirth": {
+                "year": 1992,
+                "month": 6,
+                "day": 15
+              },
+              "nationality": "Egyptian",
+              "uid": "99999999-8888-7777-6666-555555555555"
+            }
+          },
+          {
+            "type": "Staff",
+            "data": {
+              "role": "Manager",
+              "salary": 3500000.0,
+              "name": "Jurgen Klopp",
+              "dateOfBirth": {
+                "year": 1967,
+                "month": 6,
+                "day": 16
+              },
+              "nationality": "German",
+              "uid": "bbbbcccc-dddd-eeee-ffff-gggggggggggg"
+            }
+          }
+        ],
+        "uid": "22222222-3333-4444-5555-666666666666"
       }
     ],
-    "uid": "3e4a51c5-8adb-4eeb-97fe-624829948258"
+    "uid": "77777777-8888-9999-0000-111111111111"
   },
   {
     "name": "La Liga",
     "country": "Spain",
-    "clubs": [
+    "_clubs": [
       {
-        "name": "Barcelona",
+        "name": "FC Barcelona",
         "city": "Barcelona",
-        "stadium": "Nou Camp",
-        "players": [
+        "stadium": "Camp Nou",
+        "_people": [
           {
-            "name": "Frenkie De Jong",
-            "dateOfBirth": {
-              "year": 2000,
-              "month": 9,
-              "day": 1
-            },
-            "positions": [
-              "CM"
-            ],
-            "nationality": "Dutch",
-            "number": 9,
-            "uid": "faafa10f-f2d2-4bab-9246-c98ce33d6beb"
+            "type": "Player",
+            "data": {
+              "_positions": [
+                "Forward",
+                "Midfield"
+              ],
+              "number": 10,
+              "name": "Lionel Messi",
+              "dateOfBirth": {
+                "year": 1987,
+                "month": 6,
+                "day": 24
+              },
+              "nationality": "Argentinian",
+              "uid": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p"
+            }
           },
           {
-            "name": "Lionel Messi",
-            "dateOfBirth": {
-              "year": 1987,
-              "month": 6,
-              "day": 24
-            },
-            "positions": [
-              "RW"
-            ],
-            "nationality": "Argentinian",
-            "number": 10,
-            "uid": "faafa10f-f2d2-4bab-9246-c98ce33d6bec"
-          },
-          {
-            "name": "Gerard Piqué",
-            "dateOfBirth": {
-              "year": 1987,
-              "month": 2,
-              "day": 2
-            },
-            "positions": [
-              "CB"
-            ],
-            "nationality": "Spanish",
-            "number": 3,
-            "uid": "faafa10f-f2d2-4bab-9246-c98ce33d6bed"
+            "type": "Staff",
+            "data": {
+              "role": "Manager",
+              "salary": 4000000.0,
+              "name": "Ronald Koeman",
+              "dateOfBirth": {
+                "year": 1963,
+                "month": 3,
+                "day": 21
+              },
+              "nationality": "Dutch",
+              "uid": "aa11bb22-cc33-dd44-ee55-ff66gghhii"
+            }
           }
         ],
-        "uid": "5ce23a6d-1ee0-470a-bbbf-b631c2c74dd4"
-      }
-    ],
-    "uid": "1170f284-a52f-43b4-af7e-00657753b775"
-  },
-  {
-    "name": "Ligue 1",
-    "country": "France",
-    "clubs": [
+        "uid": "12ab34cd-56ef-78gh-90ij-12kl34mn56op"
+      },
       {
-        "name": "PSG",
-        "city": "Paris",
-        "stadium": "Parc des Princes",
-        "players": [
+        "name": "Real Madrid CF",
+        "city": "Madrid",
+        "stadium": "Santiago Bernabéu",
+        "_people": [
           {
-            "name": "Neymar Jr.",
-            "dateOfBirth": {
-              "year": 1992,
-              "month": 2,
-              "day": 5
-            },
-            "positions": [
-              "LW"
-            ],
-            "nationality": "Brazilian",
-            "number": 10,
-            "uid": "ba6d008c-535c-42ee-97e3-940317334b87"
+            "type": "Player",
+            "data": {
+              "_positions": [
+                "Forward",
+                "Midfield"
+              ],
+              "number": 7,
+              "name": "Karim Benzema",
+              "dateOfBirth": {
+                "year": 1987,
+                "month": 12,
+                "day": 19
+              },
+              "nationality": "French",
+              "uid": "ffeeddcc-bbaa-9988-7766-554433221100"
+            }
           },
           {
-            "name": "Kylian Mbappé",
-            "dateOfBirth": {
-              "year": 1998,
-              "month": 12,
-              "day": 20
-            },
-            "positions": [
-              "RW"
-            ],
-            "nationality": "French",
-            "number": 7,
-            "uid": "ba6d008c-535c-42ee-97e3-940317334b88"
-          },
-          {
-            "name": "Marco Verratti",
-            "dateOfBirth": {
-              "year": 1992,
-              "month": 11,
-              "day": 5
-            },
-            "positions": [
-              "CM"
-            ],
-            "nationality": "Italian",
-            "number": 6,
-            "uid": "ba6d008c-535c-42ee-97e3-940317334b89"
+            "type": "Staff",
+            "data": {
+              "role": "Manager",
+              "salary": 3800000.0,
+              "name": "Carlo Ancelotti",
+              "dateOfBirth": {
+                "year": 1959,
+                "month": 6,
+                "day": 10
+              },
+              "nationality": "Italian",
+              "uid": "ppqqrrss-ttuuvvww-xxyyzz00-11223344"
+            }
           }
         ],
-        "uid": "ba6d008c-535c-42ee-97e3-940317334b86"
+        "uid": "12345678-90ab-cdef-ghij-klmnopqrst"
       }
     ],
-    "uid": "57b26aa6-19e8-4841-9193-51857b51c3cb"
+    "uid": "24681357-913579-13579135-791357-913571"
   }
 ]

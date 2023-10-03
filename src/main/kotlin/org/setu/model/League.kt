@@ -3,12 +3,14 @@ package org.setu.model
 class League (
     var name: String,
     var country: String,
-    val clubs: MutableList<Club> = ArrayList(),
+    private val _clubs: MutableList<Club> = ArrayList(),
     val uid: String = java.util.UUID.randomUUID().toString()
 ) {
 
 
 
+    val clubs : List<Club>
+        get() = _clubs
 
     init{
         //Validation here
@@ -16,15 +18,16 @@ class League (
         require(country.isNotBlank()){"Country cannot be blank"}
     }
 
-        fun addClub(name: String, city: String, stadium: String) {
+        fun addClub(name: String, city: String, stadium: String): Club{
             val club = Club(name,city,stadium)
-            clubs.add(club)
+            _clubs.add(club)
+            return club
         }
         fun removeClub(club: Club) {
-            clubs.remove(club)
+            _clubs.remove(club)
         }
         fun removeClub(index: Int) {
-            clubs.removeAt(index)
+            _clubs.removeAt(index)
         }
         fun listClubs(): String {
             val list = clubs.joinToString("\n") { e -> e.toString() }
@@ -41,8 +44,11 @@ class League (
             return clubs.find { it.name.equals(name, ignoreCase = true) || it.toString().equals(name, ignoreCase = true)}
         }
 
-        fun replaceClub(index: Int, club: Club){
-            clubs[index] = club
+        fun replaceClub(uid : String, club: Club): Club{
+            _clubs.find { it.uid == uid }?.let {
+                _clubs[_clubs.indexOf(it)] = club
+            }
+            return club
         }
 
 
@@ -52,6 +58,6 @@ class League (
         }
 
     override fun toString(): String {
-        return "$name, $country"
+        return "League: $name, $country"
     }
 }

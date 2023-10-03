@@ -1,15 +1,18 @@
 package org.setu.controller
 
+import PersonTypeAdapter
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.*
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.Pane
-import javafx.stage.Screen
 import org.setu.model.Club
 import org.setu.model.League
+import org.setu.model.Person
 import org.setu.model.Player
+import org.setu.model.Staff
 import org.setu.view.AlertBox
 import tornadofx.*
 import java.io.File
@@ -21,7 +24,7 @@ class MainController {
     private val leagues = ArrayList<League>()
     private var selectedLeague: League? = null
     private var selectedClub: Club? = null
-    private var selectedPlayer: Player? = null
+    private var selectedPerson: Person? = null
     private val screenList = LinkedList<Pane>()
 
     @FXML
@@ -47,18 +50,21 @@ class MainController {
     lateinit var playerNumber : TextField
     lateinit var playerDOB : DatePicker
     lateinit var playerNationality : TextField
-    lateinit var playerList : ListView<Player>
+    lateinit var personList : ListView<Person>
     lateinit var updateLeagueButton: Button
     lateinit var updateClubButton: Button
     lateinit var playerNameLabel: Label
     lateinit var playerDOBLabel: Label
     lateinit var playerNumLabel: Label
     lateinit var playerNationalityLabel: Label
-    lateinit var updatePlayerButton: Button
+    lateinit var updatePersonButton: Button
     lateinit var positionBox : TextField
     lateinit var searchPane : Pane
     lateinit var searchBox : TextField
     lateinit var resultList : ListView<Any>
+    lateinit var staffRole : TextField
+    lateinit var staffSalary : TextField
+    lateinit var playerStaffToggle : ToggleButton
 
 
     @FXML
@@ -68,6 +74,10 @@ class MainController {
         clubPane.isVisible = false
         playerPane.isVisible = false
         searchPane.isVisible = false
+
+        playerStaffToggle.onAction = EventHandler {
+            toggleStaffPlayerButton()
+        }
 
 
         //Deleting from list code
@@ -124,26 +134,32 @@ class MainController {
             }
         }
 
-        playerList.onKeyPressed = EventHandler { event ->
+        personList.onKeyPressed = EventHandler { event ->
             if (event.code == KeyCode.BACK_SPACE || event.code == KeyCode.DELETE) {
-                removePlayer()
+                removePerson()
             }
         }
-        playerList.onMouseClicked = EventHandler {event ->
-            if(playerList.selectionModel.selectedItem == null) return@EventHandler
-            val player = selectedClub?.getPlayer(playerList.selectionModel.selectedItem.uid)
+        personList.onMouseClicked = EventHandler {event ->
+            if(personList.selectionModel.selectedItem == null) return@EventHandler
+            val person  = selectedClub?.getPerson(personList.selectionModel.selectedItem.uid)
             if(event.clickCount == 1){
-                    selectedPlayer = player
-                    playerName.text = player?.name
-                    playerPosition.text = player?.positions?.get(0)
-                    playerNationality.text = player?.nationality
-                    playerNumber.text = player?.number.toString()
-                    playerDOB.value = player?.dateOfBirth
-                    playerNumber.text = player?.number.toString()
-                    updatePlayerButton.isDisable = false
+                    selectedPerson = person
+                    playerName.text = person?.name
+                    playerNationality.text = person?.nationality
+                    playerDOB.value = person?.dateOfBirth
+                    if(person is Player) {
+                        playerPosition.text = person.positions[0]
+                        playerNumber.text = person.number.toString()
+                        toggleStaffPlayerButton("player")
+                    }else if(person is Staff){
+                        staffRole.text = person.role
+                        staffSalary.text = person.salary.toString()
+                        toggleStaffPlayerButton("staff")
+                    }
+                    updatePersonButton.isDisable = false
             }else if(event.clickCount == 2){
-                if(player!=null){
-                    openPlayer(player)
+                if(person!=null){
+                    openPerson(person)
                 }
             }
         }
@@ -160,7 +176,7 @@ class MainController {
                 when(val selectedResult = resultList.selectionModel.selectedItem){
                     is League -> openLeague(selectedResult, searchPane)
                     is Club -> openClub(selectedResult, searchPane)
-                    is Player -> openPlayer(selectedResult, searchPane)
+                    is Player -> openPerson(selectedResult, searchPane)
                     else -> throw Exception("Unknown type")
                 }
             }
@@ -173,6 +189,20 @@ class MainController {
             val pane = screenList.pop()
             pane.isVisible = true
         }
+    }
+
+    //Helper button toggle method
+    fun toggleStaffPlayerButton(type : String = "none"){
+        var player = playerStaffToggle.isSelected
+        if(type != "none"){
+            player = type.toLowerCase() == "player"
+            playerStaffToggle.isSelected = player
+        }
+        playerStaffToggle.text = if(player) "Player" else "Staff"
+        staffRole.isDisable = player
+        staffSalary.isDisable = player
+        playerPosition.isDisable = !player
+        playerNumber.isDisable = !player
     }
 
     //League Code
@@ -197,7 +227,8 @@ class MainController {
     private fun removeLeague() {
         try{
             val selectedLeague = mainList.selectionModel.selectedItem
-        if(!AlertBox.displayConfirmation("Delete League", "Are you sure you want to delete this league?", "This will delete all clubs and players in ${selectedLeague.name}"))
+        if(!AlertBox.displayConfirmation("Delete League", "Are you sure you want to delete this league?",
+                "This will delete all clubs and players in ${selectedLeague.name}"))
             return
 
         val league = leagues.find { it.uid == selectedLeague.uid}
@@ -250,8 +281,8 @@ class MainController {
         require(clubName.text.isNotBlank()){"Name cannot be blank"}
         require(clubCity.text.isNotBlank()){"City cannot be blank"}
         require(clubStadium.text.isNotBlank()){"Stadium cannot be blank"}
-        selectedLeague?.addClub(clubName.text, clubCity.text, clubStadium.text)
-        clubList.items.add(selectedLeague?.searchClub(clubName.text))
+        val club = selectedLeague?.addClub(clubName.text, clubCity.text, clubStadium.text)
+        clubList.items.add(club)
         clubName.text = ""
         clubCity.text = ""
         clubStadium.text = ""
@@ -263,7 +294,8 @@ class MainController {
     private fun removeClub(){
         try{
         val selectedClub = clubList.selectionModel.selectedItem
-        if(!AlertBox.displayConfirmation("Delete Club", "Are you sure you want to delete this club?", "This will delete all players in ${selectedClub.name}"))
+        if(!AlertBox.displayConfirmation("Delete Club", "Are you sure you want to delete this club?",
+                "This will delete all players in ${selectedClub.name}"))
             return
 
         val club = selectedLeague?.getClub(selectedClub.uid)
@@ -283,7 +315,7 @@ class MainController {
         club.city = clubCity.text ?: club.city
         club.stadium = clubStadium.text ?: club.stadium
         clubList.items[clubList.selectionModel.selectedIndex] = club
-        selectedLeague?.replaceClub(clubList.selectionModel.selectedIndex, club)
+        selectedLeague?.replaceClub(selectedClub.uid, club)
         }catch (e: Exception){
             AlertBox.display("Error", e.message)
         }
@@ -296,10 +328,10 @@ class MainController {
         screenList.push(currentPane)
         selectedClub = club
         if(club.listPlayers().isNotEmpty()){
-        playerList.items = club.players.toObservable()
+        personList.items = club.people.toObservable()
         }
         else{
-            playerList.items.clear()
+            personList.items.clear()
         }
         clubNameLabel.text = club.name
         clubCityLabel.text = club.city
@@ -310,124 +342,180 @@ class MainController {
         }
     }
 
-    fun addPlayer(){
+    fun addPerson(){
         try{
         val playerExists = selectedClub?.searchPlayer(playerName.text)
         if(playerExists != null) throw Exception("Player already exists")
         val dob = playerDOB.value
         require(dob.isBefore(LocalDate.now())){"Date of birth must be before today"}
+        require(playerNationality.text.isNotBlank()) { "Nationality cannot be blank" }
         require(playerName.text.isNotBlank()){"Name cannot be blank"}
-        require(playerPosition.text.isNotBlank()){"Position cannot be blank"}
-        require(playerNationality.text.isNotBlank()){"Nationality cannot be blank"}
-        require(playerNumber.text.toInt() > 0){"Number must be greater than 0"}
-        selectedClub?.addPlayer(playerName.text, dob,playerPosition.text, playerNationality.text, playerNumber.text.toInt())
-        playerList.items.add(selectedClub?.searchPlayer(playerName.text))
+        if(playerStaffToggle.isSelected) {
+            require(playerPosition.text.isNotBlank()){"Position cannot be blank"}
+            require(playerNumber.text.toInt() > 0) { "Number must be greater than 0" }
+            val player = selectedClub?.addPlayer(playerName.text, dob,playerPosition.text, playerNationality.text,
+                playerNumber.text.toInt())
+            personList.items.add(player)
+        }else {
+            require(staffRole.text.isNotBlank()) { "Role cannot be blank" }
+            require(staffSalary.text.toDouble() > 0) { "Salary must be greater than 0" }
+            val staff = selectedClub?.addStaff(playerName.text, dob, playerNationality.text, staffRole.text,
+                staffSalary.text.toDouble())
+            personList.items.add(staff)
+        }
         playerName.text = ""
         playerPosition.text = ""
         playerNationality.text = ""
         playerNumber.text = ""
         playerDOB.value = null
+        staffRole.text = ""
+        staffSalary.text = ""
         }catch (e: Exception){
             AlertBox.display("Error", e.message)
         }
 
     }
 
-    private fun removePlayer(){
+    private fun removePerson(){
         try{
-        val selectedPlayer = playerList.selectionModel.selectedItem
-        if(!AlertBox.displayConfirmation("Delete Player", "Are you sure you want to delete this player?", "This will delete ${selectedPlayer.name}"))
+        val selectedPerson = personList.selectionModel.selectedItem
+        if(!AlertBox.displayConfirmation("Delete Person", "Are you sure you want to delete this person?",
+                "This will delete ${selectedPerson.name}"))
             return
-        val player = selectedClub?.getPlayer(selectedPlayer.uid)
-        selectedClub?.removePlayer(player!!)
-        playerList.items.remove(selectedPlayer)
+        require(selectedPerson != null){"Person does not exist"}
+        selectedClub?.removePerson(selectedPerson)
+        personList.items.remove(selectedPerson)
         }catch (e: Exception){
             AlertBox.display("Error", e.message)
         }
     }
 
-    fun updatePlayer(){
+    fun updatePerson(){
         //Either replace or leave the same if empty
         try{
-        val selectedPlayer = playerList.selectionModel.selectedItem
-        require(selectedPlayer != null){"Player does not exist"}
-        val newName = playerName.text ?: selectedPlayer.name
-        val newDOB = playerDOB.value ?: selectedPlayer.dateOfBirth
-        val newPosition = playerPosition.text ?: selectedPlayer.positions.get(0)
-        val newNationality = playerNationality.text ?: selectedPlayer.nationality
-        val newNumber = playerNumber.text ?: selectedPlayer.number.toString()
-        selectedClub?.replacePlayer(playerList.selectionModel.selectedIndex, newName, newDOB, newPosition, newNationality, newNumber.toInt())
-        playerList.items[playerList.selectionModel.selectedIndex] = selectedClub?.getPlayer(playerList.selectionModel.selectedItem.uid)
+        val selectedPerson = personList.selectionModel.selectedItem
+        require(selectedPerson != null){"Player does not exist"}
+        require(playerStaffToggle.isSelected == selectedPerson is Player)
+        { "Cannot change ${selectedPerson.name} from ${if(selectedPerson is Player) "player" else "staff"} " +
+                "to ${if(selectedPerson is Player) "staff" else "player"}"}
+        val newName = playerName.text ?: selectedPerson.name
+        val newDOB = playerDOB.value ?: selectedPerson.dateOfBirth
+        val newNationality = playerNationality.text ?: selectedPerson.nationality
+        if(selectedPerson is Player) {
+            val newPosition = playerPosition.text ?: selectedPerson.positions.get(0)
+            val newNumber = playerNumber.text ?: selectedPerson.number.toString()
+            val newPlayer = selectedClub?.replacePlayer(
+                selectedPerson.uid,
+                newName,
+                newDOB,
+                newPosition,
+                newNationality,
+                newNumber.toInt())
+
+            personList.items[personList.selectionModel.selectedIndex] = newPlayer
+        }else if(selectedPerson is Staff){
+            val newRole = staffRole.text ?: selectedPerson.role
+            val newSalary = staffSalary.text ?: selectedPerson.salary.toString()
+            val newStaff = selectedClub?.replaceStaff(selectedPerson.uid, newName, newDOB,
+                newNationality, newRole, newSalary.toDouble())
+
+            personList.items[personList.selectionModel.selectedIndex] = newStaff
+        }
         }catch (e: Exception){
             AlertBox.display("Error", e.message)
         }
 
     }
 
-    fun openPlayer(player: Player, currentPane : Pane = clubPane){
+    private fun openPerson(person: Person, currentPane : Pane = clubPane){
         try{
         currentPane.isVisible = false
         screenList.push(currentPane)
-        selectedPlayer = player
+        selectedPerson = person
         clubPane.isVisible = false
         searchPane.isVisible = false
-        selectedPlayer = player
-        playerNameLabel.text = player.name
-        playerDOBLabel.text = player.dateOfBirth.toString()
-        playerNumLabel.text = player.number.toString()
-        playerNationalityLabel.text = player.nationality
-        positionList.items = player.positions.toObservable()
+        playerNameLabel.text = person.name
+        playerDOBLabel.text = person.dateOfBirth.toString()
+        playerNationalityLabel.text = person.nationality
+
+            if(person is Player) {
+                playerNumLabel.text = person.number.toString()
+                positionList.items = person.positions.toObservable()
+                positionBox.isDisable = false
+            }else if(person is Staff){
+                positionBox.isDisable = true
+                playerNumLabel.text = person.salary.toString()
+                positionList.items.clear()
+                positionList.items.add("Role: ${person.role}")
+        }
         playerPane.isVisible = true
         }catch (e: Exception){
             AlertBox.display("Error", "Error opening player \n ${e.message}")
         }
     }
 
-    fun save(){
+
+    fun save() {
         try {
-        val file = File("leagues.json")
-        //Use GSON to save the array to a file
-        val jsonArray = Gson().toJson(leagues)
-        file.writeText(jsonArray)
-        }catch (e: Exception){
+            val file = File("leagues.json")
+
+            // Create a Gson instance with the custom PersonTypeAdapter
+            val gson = GsonBuilder()
+                .registerTypeAdapter(Person::class.java, PersonTypeAdapter())
+                .create()
+
+            // Serialize the leagues list to JSON
+            val jsonArray = gson.toJson(leagues)
+
+            // Write the JSON data to the file
+            file.writeText(jsonArray)
+        } catch (e: Exception) {
             AlertBox.display("Error", "Error saving file \n ${e.message}")
         }
     }
+
 
     fun addPosition(){
         val position = positionBox.text
         if(position.isNotEmpty()){
             positionList.items.add(position)
-            selectedPlayer?.addPosition(position)
+            (selectedPerson as Player).addPosition(position)
         }
     }
 
     private fun removePosition(){
         val position = positionList.selectionModel.selectedItem
         positionList.items.remove(position)
-        selectedPlayer?.removePosition(position)
+        (selectedPerson as Player).removePosition(position)
     }
 
-    fun load(){
-        try{
-        val file = File("leagues.json")
-        //Use GSON to load the array from a file
-        val jsonArray = file.readText()
-        val leaguesArray = Gson().fromJson(jsonArray, Array<League>::class.java)
-        leagues.clear()
-        mainList.items.clear()
-        leagues.addAll(leaguesArray)
-        leagues.forEach { league ->
-            mainList.items.add(league)
-        }
-        clubPane.isVisible = false
-        playerPane.isVisible = false
-        leaguePane.isVisible = false
-        mainPane.isVisible = true
-        }catch (e: Exception){
+    fun load() {
+        try {
+            val file = File("leagues.json")
+            // Use GSON to load the array from a file
+            val jsonArray = file.readText()
+
+            val gson = GsonBuilder()
+                .registerTypeAdapter(Person::class.java, PersonTypeAdapter())
+                .create()
+
+            val leaguesArray = gson.fromJson(jsonArray, Array<League>::class.java)
+            leagues.clear()
+            mainList.items.clear()
+            leagues.addAll(leaguesArray)
+            leagues.forEach { league ->
+                mainList.items.add(league)
+            }
+            clubPane.isVisible = false
+            playerPane.isVisible = false
+            leaguePane.isVisible = false
+            mainPane.isVisible = true
+        } catch (e: Exception) {
+            System.err.println(e.message)
             AlertBox.display("Error", "Error loading file \n ${e.message}")
         }
     }
+
 
     fun openSearch(){
         screenList.push(mainPane)
@@ -448,7 +536,7 @@ class MainController {
                 if (club.toString().contains(searchTerm, ignoreCase = true)) {
                     searchResults.add(club)
                 }
-                club.players.forEach { player ->
+                club.people.forEach { player ->
                     if (player.toString().contains(searchTerm, ignoreCase = true)) {
                         searchResults.add(player)
                     }
