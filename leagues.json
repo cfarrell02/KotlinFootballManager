@@ -2,30 +2,179 @@
   {
     "name": "Premier League",
     "country": "England",
-    "clubs": [
+    "_clubs": [
       {
-        "name": "Liverpool",
-        "city": "Liverpool",
-        "stadium": "Anfield",
-        "players": [
+        "name": "Manchester United",
+        "city": "Manchester",
+        "stadium": "Old Trafford",
+        "_people": [
           {
-            "_positions": [
-              "GK"
-            ],
-            "number": 1,
-            "uid": "4de025b8-df3c-4ab2-a12d-8568e5183a39",
-            "name": "Cian",
-            "dateOfBirth": {
-              "year": 2002,
-              "month": 3,
-              "day": 18
-            },
-            "nationality": "Irish"
+            "type": "Player",
+            "data": {
+              "_positions": [
+                "Forward",
+                "Midfield"
+              ],
+              "number": 10,
+              "name": "Marcus Rashford",
+              "dateOfBirth": {
+                "year": 1997,
+                "month": 10,
+                "day": 31
+              },
+              "nationality": "English",
+              "uid": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p"
+            }
+          },
+          {
+            "type": "Staff",
+            "data": {
+              "role": "Manager",
+              "salary": 3000000.0,
+              "name": "Ole Gunnar Solskjaer",
+              "dateOfBirth": {
+                "year": 1973,
+                "month": 2,
+                "day": 26
+              },
+              "nationality": "Norwegian",
+              "uid": "aabbccdd-eeff-gghh-iijj-kkllmmnnoopp"
+            }
           }
         ],
-        "uid": "bf3e1a7d-285a-4f78-aed4-37cfde6d0a51"
+        "uid": "11111111-2222-3333-4444-555555555555"
+      },
+      {
+        "name": "Liverpool FC",
+        "city": "Liverpool",
+        "stadium": "Anfield",
+        "_people": [
+          {
+            "type": "Player",
+            "data": {
+              "_positions": [
+                "Forward",
+                "Winger"
+              ],
+              "number": 11,
+              "name": "Mohamed Salah",
+              "dateOfBirth": {
+                "year": 1992,
+                "month": 6,
+                "day": 15
+              },
+              "nationality": "Egyptian",
+              "uid": "99999999-8888-7777-6666-555555555555"
+            }
+          },
+          {
+            "type": "Staff",
+            "data": {
+              "role": "Manager",
+              "salary": 3500000.0,
+              "name": "Jurgen Klopp",
+              "dateOfBirth": {
+                "year": 1967,
+                "month": 6,
+                "day": 16
+              },
+              "nationality": "German",
+              "uid": "bbbbcccc-dddd-eeee-ffff-gggggggggggg"
+            }
+          }
+        ],
+        "uid": "22222222-3333-4444-5555-666666666666"
       }
     ],
-    "uid": "3c7c01c3-aaeb-4a5d-9734-35eea134a5ca"
+    "uid": "77777777-8888-9999-0000-111111111111"
+  },
+  {
+    "name": "La Liga",
+    "country": "Spain",
+    "_clubs": [
+      {
+        "name": "FC Barcelona",
+        "city": "Barcelona",
+        "stadium": "Camp Nou",
+        "_people": [
+          {
+            "type": "Player",
+            "data": {
+              "_positions": [
+                "Forward",
+                "Midfield"
+              ],
+              "number": 10,
+              "name": "Lionel Messi",
+              "dateOfBirth": {
+                "year": 1987,
+                "month": 6,
+                "day": 24
+              },
+              "nationality": "Argentinian",
+              "uid": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p"
+            }
+          },
+          {
+            "type": "Staff",
+            "data": {
+              "role": "Manager",
+              "salary": 4000000.0,
+              "name": "Ronald Koeman",
+              "dateOfBirth": {
+                "year": 1963,
+                "month": 3,
+                "day": 21
+              },
+              "nationality": "Dutch",
+              "uid": "aa11bb22-cc33-dd44-ee55-ff66gghhii"
+            }
+          }
+        ],
+        "uid": "12ab34cd-56ef-78gh-90ij-12kl34mn56op"
+      },
+      {
+        "name": "Real Madrid CF",
+        "city": "Madrid",
+        "stadium": "Santiago Bernabéu",
+        "_people": [
+          {
+            "type": "Player",
+            "data": {
+              "_positions": [
+                "Forward",
+                "Midfield"
+              ],
+              "number": 7,
+              "name": "Karim Benzema",
+              "dateOfBirth": {
+                "year": 1987,
+                "month": 12,
+                "day": 19
+              },
+              "nationality": "French",
+              "uid": "ffeeddcc-bbaa-9988-7766-554433221100"
+            }
+          },
+          {
+            "type": "Staff",
+            "data": {
+              "role": "Manager",
+              "salary": 3800000.0,
+              "name": "Carlo Ancelotti",
+              "dateOfBirth": {
+                "year": 1959,
+                "month": 6,
+                "day": 10
+              },
+              "nationality": "Italian",
+              "uid": "ppqqrrss-ttuuvvww-xxyyzz00-11223344"
+            }
+          }
+        ],
+        "uid": "12345678-90ab-cdef-ghij-klmnopqrst"
+      }
+    ],
+    "uid": "24681357-913579-13579135-791357-913571"
   }
 ]

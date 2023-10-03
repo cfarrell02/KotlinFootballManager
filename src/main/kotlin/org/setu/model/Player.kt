@@ -23,7 +23,7 @@ class Player(
     }
 
     override fun toString(): String {
-        return "$name, $dateOfBirth, ${_positions.joinToString()}, Number: $number, $nationality"
+        return "Player: $name, $dateOfBirth, ${_positions.joinToString()}, Number: $number, $nationality"
     }
 
     fun addPosition(position: String) {

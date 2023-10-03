@@ -2,7 +2,7 @@ package org.setu.model
 
 import java.time.LocalDate
 
-open class Person(
+abstract class Person(
     val name: String,
     val dateOfBirth: LocalDate,
     val nationality: String,
@@ -12,5 +12,9 @@ open class Person(
         // Validation here
         require(name.isNotBlank()) { "Name cannot be blank" }
         require(dateOfBirth.isBefore(LocalDate.now())) { "Date of birth cannot be in the future" }
+    }
+
+    override fun toString(): String {
+        return "$name, $dateOfBirth, $nationality"
     }
 }

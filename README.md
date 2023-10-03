@@ -30,7 +30,12 @@ I'm excited to introduce my first kotlin application, **League Manager™**, a K
 
 To get started with League Manager™, simply download and run this application on your device, NOTE: You must have Java configured on your device to run this app. Explore and manage your sports-related data effortlessly with the provided GUI.
 
+## References
 
+- **GUI**: [TornadoFX](https://tornadofx.io/)
+- **CSS**: Courtesy of [AtlantaFX](https://github.com/mkpaz/atlantafx/releases/tag/v2.0.1)
+- **JSON Serialization**: Courtesy of [Gson](https://github.com/google/gson)
+- **Custom Gson Serializer**: [Gson Serializer](https://stackoverflow.com/questions/57433875/create-an-adapterfactory-for-gson-for-dynamic-types)
 
 
 

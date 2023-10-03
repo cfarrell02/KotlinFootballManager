@@ -17,6 +17,6 @@ class Staff(
     }
 
     override fun toString(): String {
-        return "$name, $dateOfBirth, $nationality, $role, $salary"
+        return "Staff: $name, $dateOfBirth, $nationality, $role, $salary"
     }
 }
