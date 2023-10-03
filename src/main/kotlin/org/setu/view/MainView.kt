@@ -7,6 +7,9 @@ import tornadofx.*
 
 class MainView : View("League Manager") {
     override val root: Pane = FXMLLoader.load<Pane>(javaClass.getResource("/fxml/MainView.fxml"))
+    init {
+        primaryStage.isResizable = false
+    }
 }
 
 
