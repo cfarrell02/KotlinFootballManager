@@ -1,4 +1,4 @@
-package org.setu
+package org.setu.main
 
 import org.setu.view.MainView
 import tornadofx.App

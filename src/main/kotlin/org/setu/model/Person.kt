@@ -3,9 +3,9 @@ package org.setu.model
 import java.time.LocalDate
 
 abstract class Person(
-    val name: String,
-    val dateOfBirth: LocalDate,
-    val nationality: String,
+    var name: String,
+    var dateOfBirth: LocalDate,
+    var nationality: String,
     val uid: String = java.util.UUID.randomUUID().toString()
 ) {
     init {

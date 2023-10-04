@@ -1,4 +1,4 @@
-package org.setu
+package org.setu.main
 
 import javafx.scene.text.FontWeight
 import tornadofx.Stylesheet

@@ -6,8 +6,8 @@ class Staff(
     name: String,
     dateOfBirth: LocalDate,
     nationality: String,
-    val role: String,
-    val salary: Double
+    var role: String,
+    var salary: Double
 ) : Person(name,dateOfBirth,nationality)
 {
     init {

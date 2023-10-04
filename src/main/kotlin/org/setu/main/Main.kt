@@ -1,4 +1,4 @@
-package org.setu
+package org.setu.main
 
 import tornadofx.launch
 

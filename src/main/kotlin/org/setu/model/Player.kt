@@ -7,7 +7,7 @@ class Player(
     dateOfBirth: LocalDate,
     private val _positions: MutableList<String>,
     nationality: String,
-    val number: Int
+    var number: Int
 ) : Person(name, dateOfBirth, nationality) {
 
     val positions: List<String>
@@ -32,5 +32,9 @@ class Player(
 
     fun removePosition(position: String) {
         _positions.remove(position)
+    }
+
+    fun clearPositions() {
+        _positions.clear()
     }
 }

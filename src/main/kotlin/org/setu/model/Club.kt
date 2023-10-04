@@ -37,18 +37,25 @@ class Club (
         _people.remove(person)
     }
 
-    fun replacePlayer(uid: String, name: String, dateOfBirth : LocalDate, position: String, nationality: String, number : Int): Player{
-        val player = Player(name,dateOfBirth,position ,nationality, number)
-        _people.find { it.uid == uid }?.let {
-            _people[_people.indexOf(it)] = player
-        }
+    fun updatePlayer(uid: String, name: String, dateOfBirth : LocalDate, position: String, nationality: String, number : Int): Player{
+        val player = _people.find { it.uid == uid }
+        require(player is Player) { "Person with uid $uid is not a player" }
+        player.name = name
+        player.dateOfBirth = dateOfBirth
+        player.clearPositions()
+        player.addPosition(position)
+        player.nationality = nationality
+        player.number = number
         return player
     }
-    fun replaceStaff(uid: String, name: String, dateOfBirth: LocalDate, nationality: String, role: String, salary: Double): Staff{
-        val staff = Staff(name,dateOfBirth,nationality,role,salary)
-        _people.find { it.uid == uid }?.let {
-            _people[_people.indexOf(it)] = staff
-        }
+    fun updateStaff(uid: String, name: String, dateOfBirth: LocalDate, nationality: String, role: String, salary: Double): Staff{
+        val staff = _people.find { it.uid == uid }
+        require(staff is Staff) { "Person with uid $uid is not a staff" }
+        staff.name = name
+        staff.dateOfBirth = dateOfBirth
+        staff.nationality = nationality
+        staff.role = role
+        staff.salary = salary
         return staff
     }
     fun removePerson(index: Int) {

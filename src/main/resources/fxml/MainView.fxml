@@ -49,11 +49,11 @@
             <Label fx:id="leagueNameLabel" alignment="CENTER" layoutX="50.0" layoutY="71.0" prefHeight="17.0" prefWidth="236.0" text="Label" />
             <Label fx:id="leagueNationLabel" alignment="CENTER" layoutX="35.0" layoutY="152.0" prefHeight="17.0" prefWidth="266.0" text="Label" />
             <Separator layoutX="365.0" layoutY="13.0" orientation="VERTICAL" prefHeight="177.0" prefWidth="7.0" />
-            <Label fx:id="leagueNameLabel1" alignment="CENTER_RIGHT" layoutX="376.0" layoutY="56.0" prefHeight="17.0" prefWidth="113.0" text="Club Name" />
+            <Label alignment="CENTER_RIGHT" layoutX="376.0" layoutY="56.0" prefHeight="17.0" prefWidth="113.0" text="Club Name" />
             <TextField fx:id="clubName" layoutX="494.0" layoutY="53.0" />
-            <Label fx:id="leagueNameLabel11" alignment="CENTER_RIGHT" layoutX="376.0" layoutY="109.0" prefHeight="17.0" prefWidth="113.0" text="Club City" />
+            <Label alignment="CENTER_RIGHT" layoutX="376.0" layoutY="109.0" prefHeight="17.0" prefWidth="113.0" text="Club City" />
             <TextField fx:id="clubCity" layoutX="494.0" layoutY="104.0" />
-            <Label fx:id="leagueNameLabel111" alignment="CENTER_RIGHT" layoutX="376.0" layoutY="160.0" prefHeight="17.0" prefWidth="113.0" text="Club Stadium" />
+            <Label alignment="CENTER_RIGHT" layoutX="376.0" layoutY="160.0" prefHeight="17.0" prefWidth="113.0" text="Club Stadium" />
             <TextField fx:id="clubStadium" layoutX="494.0" layoutY="155.0" />
             <Button layoutX="687.0" layoutY="72.0" mnemonicParsing="false" onAction="#addClub" prefHeight="25.0" prefWidth="64.0" text="Add" />
             <Button fx:id="updateClubButton" disable="true" layoutX="687.0" layoutY="153.0" mnemonicParsing="false" onAction="#updateClub" prefHeight="25.0" prefWidth="64.0" text="Update" />
@@ -108,7 +108,7 @@
       <Pane fx:id="searchPane" layoutY="27.0" prefHeight="565.0" prefWidth="794.0" visible="false">
          <children>
             <Button layoutX="13.0" layoutY="27.0" mnemonicParsing="false" onAction="#goBack" text="Back" />
-            <Label alignment="CENTER" layoutX="228.0" layoutY="26.0" prefHeight="51.0" prefWidth="338.0" text="Search for a league/club/player">
+            <Label alignment="CENTER" layoutX="228.0" layoutY="26.0" prefHeight="51.0" prefWidth="338.0" text="Search for a league/club/person">
                <font>
                   <Font size="18.0" />
                </font>
