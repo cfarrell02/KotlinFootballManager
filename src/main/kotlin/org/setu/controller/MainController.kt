@@ -8,11 +8,7 @@ import javafx.fxml.FXML
 import javafx.scene.control.*
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.Pane
-import org.setu.model.Club
-import org.setu.model.League
-import org.setu.model.Person
-import org.setu.model.Player
-import org.setu.model.Staff
+import org.setu.model.*
 import org.setu.view.AlertBox
 import tornadofx.*
 import java.io.File
@@ -21,7 +17,7 @@ import java.util.LinkedList
 
 
 class MainController {
-    private val leagues = ArrayList<League>()
+    private val leagueStore = LeagueStore()
     private var selectedLeague: League? = null
     private var selectedClub: Club? = null
     private var selectedPerson: Person? = null
@@ -90,8 +86,7 @@ class MainController {
         //Opening league code
         mainList.onMouseClicked = EventHandler { event ->
             if(mainList.selectionModel.selectedItem == null) return@EventHandler
-            val league = leagues.find { l ->
-                l.uid == mainList.selectionModel.selectedItem.uid }
+            val league = leagueStore.getLeague(mainList.selectionModel.selectedItem.uid)
             if(event.clickCount == 1){
                 if(league != null) {
                     selectedLeague = league
@@ -133,12 +128,13 @@ class MainController {
                 }
             }
         }
-
+        //Deleting from person list code
         personList.onKeyPressed = EventHandler { event ->
             if (event.code == KeyCode.BACK_SPACE || event.code == KeyCode.DELETE) {
                 removePerson()
             }
         }
+        //Opening person code
         personList.onMouseClicked = EventHandler {event ->
             if(personList.selectionModel.selectedItem == null) return@EventHandler
             val person  = selectedClub?.getPerson(personList.selectionModel.selectedItem.uid)
@@ -163,9 +159,10 @@ class MainController {
                 }
             }
         }
-
+        //Deleting from position list code
         positionList.onKeyPressed = EventHandler { event ->
             if (event.code == KeyCode.BACK_SPACE || event.code == KeyCode.DELETE) {
+                if(selectedPerson is Player)
                 removePosition()
             }
         }
@@ -176,7 +173,7 @@ class MainController {
                 when(val selectedResult = resultList.selectionModel.selectedItem){
                     is League -> openLeague(selectedResult, searchPane)
                     is Club -> openClub(selectedResult, searchPane)
-                    is Player -> openPerson(selectedResult, searchPane)
+                    is Person -> openPerson(selectedResult, searchPane)
                     else -> throw Exception("Unknown type")
                 }
             }
@@ -192,7 +189,7 @@ class MainController {
     }
 
     //Helper button toggle method
-    fun toggleStaffPlayerButton(type : String = "none"){
+    private fun toggleStaffPlayerButton(type : String = "none"){
         var player = playerStaffToggle.isSelected
         if(type != "none"){
             player = type.toLowerCase() == "player"
@@ -208,15 +205,8 @@ class MainController {
     //League Code
     fun addLeague() {
         try{
-        val leagueExists = leagues.any { it.toString().equals(leagueName.text, ignoreCase = true) }
-        if(leagueExists) throw Exception("League already exists")
-        require(leagueName.text.isNotBlank()){"Name cannot be blank"}
-        require(leagueNation.text.isNotBlank()){"Nation cannot be blank"}
-        val newLeague = League(leagueName.text, leagueNation.text)
-        leagues.add(newLeague)
-
+        val newLeague = leagueStore.addLeague(leagueName.text, leagueNation.text)
         mainList.items.add(newLeague)
-
         leagueName.text = ""
         leagueNation.text = ""
         }catch (e: Exception){
@@ -230,9 +220,7 @@ class MainController {
         if(!AlertBox.displayConfirmation("Delete League", "Are you sure you want to delete this league?",
                 "This will delete all clubs and players in ${selectedLeague.name}"))
             return
-
-        val league = leagues.find { it.uid == selectedLeague.uid}
-        leagues.remove(league)
+        leagueStore.removeLeague(selectedLeague.uid)
         mainList.items.remove(selectedLeague)
         }catch (e: Exception){
             AlertBox.display("Error", e.message)
@@ -242,12 +230,8 @@ class MainController {
     fun updateLeague(){
         try{
         val selectedLeague = mainList.selectionModel.selectedItem
-        val league = leagues.find { it.uid == selectedLeague.uid }
-        require(league != null){"League does not exist"}
-        league.name = leagueName.text ?: league.name
-        league.country = leagueNation.text ?: league.country
-        mainList.items[mainList.selectionModel.selectedIndex] = league
-        leagues[mainList.selectionModel.selectedIndex] = league
+        val newLeague = leagueStore.updateLeague(selectedLeague.uid, leagueName.text, leagueNation.text)
+        mainList.items[mainList.selectionModel.selectedIndex] = newLeague
         }catch (e: Exception){
             AlertBox.display("Error", e.message)
         }
@@ -315,7 +299,7 @@ class MainController {
         club.city = clubCity.text ?: club.city
         club.stadium = clubStadium.text ?: club.stadium
         clubList.items[clubList.selectionModel.selectedIndex] = club
-        selectedLeague?.replaceClub(selectedClub.uid, club)
+        selectedLeague?.updateClub(selectedClub.uid, club.name, club.city, club.stadium)
         }catch (e: Exception){
             AlertBox.display("Error", e.message)
         }
@@ -393,38 +377,33 @@ class MainController {
     fun updatePerson(){
         //Either replace or leave the same if empty
         try{
-        val selectedPerson = personList.selectionModel.selectedItem
-        require(selectedPerson != null){"Player does not exist"}
-        require(playerStaffToggle.isSelected == selectedPerson is Player)
-        { "Cannot change ${selectedPerson.name} from ${if(selectedPerson is Player) "player" else "staff"} " +
-                "to ${if(selectedPerson is Player) "staff" else "player"}"}
-        val newName = playerName.text ?: selectedPerson.name
-        val newDOB = playerDOB.value ?: selectedPerson.dateOfBirth
-        val newNationality = playerNationality.text ?: selectedPerson.nationality
-        if(selectedPerson is Player) {
-            val newPosition = playerPosition.text ?: selectedPerson.positions.get(0)
-            val newNumber = playerNumber.text ?: selectedPerson.number.toString()
-            val newPlayer = selectedClub?.replacePlayer(
-                selectedPerson.uid,
-                newName,
-                newDOB,
-                newPosition,
-                newNationality,
-                newNumber.toInt())
+            val selectedPerson = personList.selectionModel.selectedItem
+            require(selectedPerson != null){"Player does not exist"}
+            require(playerStaffToggle.isSelected == selectedPerson is Player)
+            { "Cannot change from ${if(selectedPerson is Player) "player" else "staff"} to " +
+                    if(selectedPerson is Player) "staff" else "player"
+            }
+            val newName = playerName.text ?: selectedPerson.name
+            val newDOB = playerDOB.value ?: selectedPerson.dateOfBirth
+            val newNationality = playerNationality.text ?: selectedPerson.nationality
+            if(selectedPerson is Player) {
+                val newPosition = playerPosition.text ?: selectedPerson.positions.get(0)
+                val newNumber = playerNumber.text ?: selectedPerson.number.toString()
+                val newPlayer = selectedClub?.updatePlayer(selectedPerson.uid, newName, newDOB, newPosition,
+                    newNationality, newNumber.toInt())
 
-            personList.items[personList.selectionModel.selectedIndex] = newPlayer
-        }else if(selectedPerson is Staff){
-            val newRole = staffRole.text ?: selectedPerson.role
-            val newSalary = staffSalary.text ?: selectedPerson.salary.toString()
-            val newStaff = selectedClub?.replaceStaff(selectedPerson.uid, newName, newDOB,
-                newNationality, newRole, newSalary.toDouble())
+                personList.items[personList.selectionModel.selectedIndex] = newPlayer
+            }else if(selectedPerson is Staff){
+                val newRole = staffRole.text ?: selectedPerson.role
+                val newSalary = staffSalary.text ?: selectedPerson.salary.toString()
+                val newStaff = selectedClub?.updateStaff(selectedPerson.uid, newName, newDOB,
+                    newNationality, newRole, newSalary.toDouble())
 
-            personList.items[personList.selectionModel.selectedIndex] = newStaff
+                personList.items[personList.selectionModel.selectedIndex] = newStaff
         }
         }catch (e: Exception){
             AlertBox.display("Error", e.message)
         }
-
     }
 
     private fun openPerson(person: Person, currentPane : Pane = clubPane){
@@ -457,18 +436,7 @@ class MainController {
 
     fun save() {
         try {
-            val file = File("leagues.json")
-
-            // Create a Gson instance with the custom PersonTypeAdapter
-            val gson = GsonBuilder()
-                .registerTypeAdapter(Person::class.java, PersonTypeAdapter())
-                .create()
-
-            // Serialize the leagues list to JSON
-            val jsonArray = gson.toJson(leagues)
-
-            // Write the JSON data to the file
-            file.writeText(jsonArray)
+            leagueStore.save()
         } catch (e: Exception) {
             AlertBox.display("Error", "Error saving file \n ${e.message}")
         }
@@ -491,19 +459,9 @@ class MainController {
 
     fun load() {
         try {
-            val file = File("leagues.json")
-            // Use GSON to load the array from a file
-            val jsonArray = file.readText()
-
-            val gson = GsonBuilder()
-                .registerTypeAdapter(Person::class.java, PersonTypeAdapter())
-                .create()
-
-            val leaguesArray = gson.fromJson(jsonArray, Array<League>::class.java)
-            leagues.clear()
+            val loadedArray = leagueStore.load()
             mainList.items.clear()
-            leagues.addAll(leaguesArray)
-            leagues.forEach { league ->
+            loadedArray.forEach { league ->
                 mainList.items.add(league)
             }
             clubPane.isVisible = false
@@ -525,25 +483,7 @@ class MainController {
 
     fun search(){
         val searchTerm = searchBox.text
-        val searchResults = ArrayList<Any>()
-        //Big bulky inefficient triple nested loop
-        //Could I make this more efficient? Yes but i dont want to
-        leagues.forEach { league ->
-            if (league.toString().contains(searchTerm, ignoreCase = true)) {
-                searchResults.add(league)
-            }
-            league.clubs.forEach { club ->
-                if (club.toString().contains(searchTerm, ignoreCase = true)) {
-                    searchResults.add(club)
-                }
-                club.people.forEach { player ->
-                    if (player.toString().contains(searchTerm, ignoreCase = true)) {
-                        searchResults.add(player)
-                    }
-                }
-            }
-        }
-        resultList.items = searchResults.toObservable()
+        resultList.items = leagueStore.search(searchTerm).toObservable()
     }
 
 }

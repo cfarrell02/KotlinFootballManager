@@ -3,7 +3,7 @@ package org.setu.model
 class League (
     var name: String,
     var country: String,
-    private val _clubs: MutableList<Club> = ArrayList(),
+    private val _clubs: MutableList<Club> = mutableListOf(),
     val uid: String = java.util.UUID.randomUUID().toString()
 ) {
 
@@ -33,10 +33,7 @@ class League (
             val list = clubs.joinToString("\n") { e -> e.toString() }
             return list
         }
-        fun listClubsWithIndex(): String {
-            val list = clubs.mapIndexed { index, club -> "${index + 1}. $club" }
-            return list.joinToString("\n")
-        }
+
         fun getClub(id: String): Club {
             return clubs.find { it.uid == id }!!
         }
@@ -44,10 +41,11 @@ class League (
             return clubs.find { it.name.equals(name, ignoreCase = true) || it.toString().equals(name, ignoreCase = true)}
         }
 
-        fun replaceClub(uid : String, club: Club): Club{
-            _clubs.find { it.uid == uid }?.let {
-                _clubs[_clubs.indexOf(it)] = club
-            }
+        fun updateClub(id: String, name: String, city: String, stadium: String): Club {
+            val club = clubs.find { it.uid == id }!!
+            club.name = name
+            club.city = city
+            club.stadium = stadium
             return club
         }
 

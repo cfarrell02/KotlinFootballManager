@@ -4,6 +4,7 @@ plugins {
     id "org.openjfx.javafxplugin" version "0.0.9"
     id 'com.xcporter.jpkg' version '0.0.7'
 }
+
 group = 'com.test'
 version = '1.0-SNAPSHOT'
 
@@ -13,7 +14,7 @@ repositories {
 }
 
 application {
-    mainClassName = "org.setu.MainKt"
+    mainClassName = "org.setu.main.MainKt"
 }
 
 javafx {
@@ -33,3 +34,12 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
 
+// Add a JAR creation task
+task createJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'org.setu.main.MainKt'
+    }
+    baseName = 'setu'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
