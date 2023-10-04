@@ -28,7 +28,7 @@ I'm excited to introduce my first kotlin application, **League Manager™**, a K
 
 ## Getting Started
 
-To get started with League Manager™, simply download and run this application on your device, NOTE: You must have Java configured on your device to run this app. Explore and manage your sports-related data effortlessly with the provided GUI.
+To get started with League Manager™, download the source code, open in intellij and build the gradle project. Once its all initialised then run the main.kt file.  NOTE: You must have Java configured on your device to run this app. Explore and manage your sports-related data effortlessly with the provided GUI.
 
 ## References
 
