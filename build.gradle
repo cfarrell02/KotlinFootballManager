@@ -23,8 +23,10 @@ javafx {
 
 dependencies {
     implementation "no.tornado:tornadofx:$tornadofx_version"
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
     implementation "com.google.code.gson:gson:2.10.1"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    test.useJUnitPlatform() // fix "test events not received" bug in ID
 }
 
 compileKotlin {
@@ -42,4 +44,9 @@ task createJar(type: Jar) {
     baseName = 'setu'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+}
+
+// Define a task for running tests
+test {
+    testLogging.showStandardStreams = true
 }

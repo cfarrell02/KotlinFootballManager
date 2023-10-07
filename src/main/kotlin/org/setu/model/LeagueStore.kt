@@ -20,9 +20,6 @@ class LeagueStore {
         return league
     }
 
-    fun removeLeague(league: League) {
-        _leagues.remove(league)
-    }
 
     fun removeLeague(uid: String) {
         _leagues.removeIf { it.uid == uid }

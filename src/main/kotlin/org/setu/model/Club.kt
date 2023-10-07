@@ -33,8 +33,9 @@ class Club (
         _people.add(staff)
         return staff
     }
-    fun removePerson(person: Person) {
+    fun removePerson(person: Person): Person {
         _people.remove(person)
+        return person
     }
 
     fun updatePlayer(uid: String, name: String, dateOfBirth : LocalDate, position: String, nationality: String, number : Int): Player{
@@ -58,9 +59,7 @@ class Club (
         staff.salary = salary
         return staff
     }
-    fun removePerson(index: Int) {
-        _people.removeAt(index)
-    }
+
     fun listPlayers(): String {
         val list = _people.joinToString("\n") { e -> e.toString() }
         return list

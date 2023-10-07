@@ -23,11 +23,9 @@ class League (
             _clubs.add(club)
             return club
         }
-        fun removeClub(club: Club) {
+        fun removeClub(club: Club): Club {
             _clubs.remove(club)
-        }
-        fun removeClub(index: Int) {
-            _clubs.removeAt(index)
+            return club
         }
         fun listClubs(): String {
             val list = clubs.joinToString("\n") { e -> e.toString() }
