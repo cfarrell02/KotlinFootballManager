@@ -22,8 +22,6 @@ I'm excited to introduce my first kotlin application, **League Manager™**, a K
 - **Persistent Storage**: Safeguard your data by saving it to a JSON file.
 - **Efficient Searching**: Quickly locate and access entities using the built-in search feature.
 - **Data Validation**: Ensure data integrity with built-in validation for all entities.
-- **Data Sorting**: Sort entities by name, date, and other attributes. - **to be implemented**
-- **Data Filtering**: Filter entities by name, date, and other attributes. - **to be implemented**
 
 
 ## Getting Started
