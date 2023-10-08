@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
+import java.io.File
 
 class LeagueStoreTest {
     var leagueStore = LeagueStore()
@@ -16,11 +17,15 @@ class LeagueStoreTest {
         leagueStore.leagues[0].clubs[0].addPlayer("John Doe", java.time.LocalDate.of(1990, 1, 1), "Goalkeeper", "English", 1)
         leagueStore.leagues[0].clubs[0].addPlayer("Jim Johnson", java.time.LocalDate.of(1990, 1, 1), "Defender", "Irish", 2)
         leagueStore.leagues[0].clubs[0].addStaff("Jack Jackson", java.time.LocalDate.of(1990, 1, 1), "Scottish", "Coach", 25000.0)
+        leagueStore.save("test.json")
     }
 
     @AfterEach
     fun tearDown() {
         leagueStore = LeagueStore()
+        //Delete any files created
+        File("test.json").delete()
+        File("test2.json").delete()
     }
 
     @Test
@@ -80,4 +85,33 @@ class LeagueStoreTest {
         val league = leagueStore.getLeague(leagueStore.leagues[0].uid)
         assertEquals(leagueStore.leagues[0], league)
     }
+
+    @Test
+    fun clear(){
+        leagueStore.clear()
+        assertEquals(0, leagueStore.leagues.size)
+    }
+
+    @Test
+    fun load(){
+        leagueStore.clear()
+        assertEquals(0, leagueStore.leagues.size)
+        leagueStore.load("test.json")
+        assertEquals(1, leagueStore.leagues.size)
+
+    }
+    @Test
+    fun save(){
+        leagueStore.clear()
+        assertEquals(0, leagueStore.leagues.size)
+        leagueStore.load("test.json")
+        assertEquals(1, leagueStore.leagues.size)
+        leagueStore.save("test2.json")
+        leagueStore.clear()
+        assertEquals(0, leagueStore.leagues.size)
+        leagueStore.load("test2.json")
+        assertEquals(1, leagueStore.leagues.size)
+
+    }
+
 }

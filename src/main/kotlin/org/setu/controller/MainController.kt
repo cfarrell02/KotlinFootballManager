@@ -1,19 +1,16 @@
 package org.setu.controller
 
-import PersonTypeAdapter
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.*
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.Pane
+import javafx.stage.WindowEvent
 import org.setu.model.*
 import org.setu.view.AlertBox
 import tornadofx.*
-import java.io.File
 import java.time.LocalDate
-import java.util.LinkedList
+import java.util.*
 
 
 class MainController {
@@ -485,5 +482,6 @@ class MainController {
         val searchTerm = searchBox.text
         resultList.items = leagueStore.search(searchTerm).toObservable()
     }
+
 
 }

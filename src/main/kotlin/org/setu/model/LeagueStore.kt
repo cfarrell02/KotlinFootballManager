@@ -27,6 +27,10 @@ class LeagueStore {
         return league
     }
 
+    fun clear() {
+        _leagues.clear()
+    }
+
     fun updateLeague(uid: String, name: String, country: String): League {
         val league = _leagues.find { it.uid == uid }!!
         require(name != "") { "Name cannot be blank" }
@@ -58,8 +62,8 @@ class LeagueStore {
         return searchResults
     }
 
-    fun load() : List<League> {
-        val file = File("leagues.json")
+    fun load(fileName : String = "leagues.json") : List<League> {
+        val file = File(fileName)
         // Use GSON to load the array from a file
         val jsonArray = file.readText()
 
@@ -74,8 +78,8 @@ class LeagueStore {
 
     }
 
-    fun save(){
-        val file = File("leagues.json")
+    fun save(fileName : String = "leagues.json"){
+        val file = File(fileName)
 
         // Create a Gson instance with the custom PersonTypeAdapter
         val gson = GsonBuilder()

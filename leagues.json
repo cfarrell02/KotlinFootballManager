@@ -29,7 +29,7 @@
           {
             "type": "Staff",
             "data": {
-              "role": "Manager",
+              "role": "Head Coach",
               "salary": 3000000.0,
               "name": "Ole Gunnar Solskjaer",
               "dateOfBirth": {
@@ -160,7 +160,7 @@
             "type": "Staff",
             "data": {
               "role": "Manager",
-              "salary": 3800000.0,
+              "salary": 100000.0,
               "name": "Carlo Ancelotti",
               "dateOfBirth": {
                 "year": 1959,
