@@ -10,18 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="321233bb-825e-4b27-b15f-4a5ce103599a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/ClubTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/LeagueStoreTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/LeagueTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/PlayerTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/StaffTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/controller/MainController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/controller/MainController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Club.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Club.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/League.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/League.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/LeagueStore.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/LeagueStore.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Person.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/Person.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/ClubTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/ClubTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/LeagueStoreTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/LeagueStoreTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/LeagueTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/LeagueTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,28 +84,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/cianfarrell/Documents/Repos/setu-mad1-assignment-one-cfarrell02&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/cianfarrell/Documents/Repos/setu-mad1-assignment-one-cfarrell02",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/kotlin/org/setu/main" />
@@ -126,7 +124,7 @@
       <recent name="org.setu.view" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.Tests in 'org.setu.model'">
+  <component name="RunManager" selected="Gradle.Tests in 'tornadofx-gradle-project.test'">
     <configuration name="ClubTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -151,7 +149,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="LeagueStoreTest.search" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="ClubTest.removePerson" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -164,7 +162,31 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.setu.model.LeagueStoreTest.search&quot;" />
+            <option value="&quot;org.setu.model.ClubTest.removePerson&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="LeagueTest.removeClub" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.setu.model.LeagueTest.removeClub&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -187,29 +209,8 @@
         <option name="taskNames">
           <list>
             <option value=":test" />
+            <option value="--tests" />
             <option value="&quot;org.setu.model.*&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="Tests in 'tornadofx-gradle-project.test' (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -231,7 +232,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value=":testClasses" />
+            <option value=":test" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -243,19 +244,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.Tests in 'tornadofx-gradle-project.test' (1)" />
+      <item itemvalue="Gradle.ClubTest.removePerson" />
+      <item itemvalue="Gradle.LeagueTest.removeClub" />
       <item itemvalue="Gradle.ClubTest" />
-      <item itemvalue="Gradle.LeagueStoreTest.search" />
       <item itemvalue="Gradle.Tests in 'org.setu.model'" />
       <item itemvalue="Gradle.Tests in 'tornadofx-gradle-project.test'" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.Tests in 'tornadofx-gradle-project.test'" />
         <item itemvalue="Gradle.Tests in 'org.setu.model'" />
         <item itemvalue="Gradle.ClubTest" />
-        <item itemvalue="Gradle.Tests in 'tornadofx-gradle-project.test' (1)" />
-        <item itemvalue="Gradle.Tests in 'tornadofx-gradle-project.test'" />
-        <item itemvalue="Gradle.LeagueStoreTest.search" />
+        <item itemvalue="Gradle.ClubTest.removePerson" />
+        <item itemvalue="Gradle.LeagueTest.removeClub" />
       </list>
     </recent_temporary>
   </component>
@@ -287,5 +288,15 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/tornadofx_gradle_project$LeagueStoreTest.ic" NAME="LeagueStoreTest Coverage Results" MODIFIED="1696721795470" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/tornadofx_gradle_project$ClubTest.ic" NAME="ClubTest Coverage Results" MODIFIED="1696722373112" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/tornadofx_gradle_project$Tests_in__tornadofx_gradle_project_test___1_.ic" NAME="Tests in 'tornadofx-gradle-project.test' (1) Coverage Results" MODIFIED="1696721452700" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/tornadofx_gradle_project$ClubTest_getPerson.ic" NAME="ClubTest.getPerson Coverage Results" MODIFIED="1696721593661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/tornadofx_gradle_project$LeagueTest_removeClub.ic" NAME="LeagueTest.removeClub Coverage Results" MODIFIED="1696721986740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/tornadofx_gradle_project$ClubTest_removePerson.ic" NAME="ClubTest.removePerson Coverage Results" MODIFIED="1696722336136" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/tornadofx_gradle_project$Tests_in__org_setu_model_.ic" NAME="Tests in 'org.setu.model' Coverage Results" MODIFIED="1696722459876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/tornadofx_gradle_project$Tests_in__tornadofx_gradle_project_test_.ic" NAME="Tests in 'tornadofx-gradle-project.test' Coverage Results" MODIFIED="1696723216906" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

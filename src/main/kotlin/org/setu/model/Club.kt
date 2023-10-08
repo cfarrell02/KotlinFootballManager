@@ -33,7 +33,8 @@ class Club (
         _people.add(staff)
         return staff
     }
-    fun removePerson(person: Person): Person {
+    fun removePerson(uid: String): Person {
+        val person = _people.find { it.uid == uid } ?: throw IllegalArgumentException("Person with uid $uid not found")
         _people.remove(person)
         return person
     }
@@ -75,7 +76,7 @@ class Club (
         return _people[index]
     }
     fun searchPlayer(name: String): Person? {
-        return _people.find { it.name.equals(name, ignoreCase = true) || it.toString().equals(name, ignoreCase = true)}
+        return _people.find { it.name.equals(name, ignoreCase = true) || it.toString().equals(name, ignoreCase = true) }
     }
 
     fun getPerson(id: String): Person? {

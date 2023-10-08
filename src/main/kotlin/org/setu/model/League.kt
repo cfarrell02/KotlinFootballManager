@@ -23,7 +23,8 @@ class League (
             _clubs.add(club)
             return club
         }
-        fun removeClub(club: Club): Club {
+        fun removeClub(uid: String): Club {
+            val club = _clubs.find { it.uid == uid } ?: throw IllegalArgumentException("Club with uid $uid not found")
             _clubs.remove(club)
             return club
         }
@@ -32,12 +33,13 @@ class League (
             return list
         }
 
-        fun getClub(id: String): Club {
-            return clubs.find { it.uid == id }!!
+        fun getClub(id: String): Club? {
+            return clubs.find { it.uid == id }
         }
-        fun searchClub(name: String): Club? {
-            return clubs.find { it.name.equals(name, ignoreCase = true) || it.toString().equals(name, ignoreCase = true)}
-        }
+    fun searchClub(name: String): Club? {
+        return clubs.find { it.name.equals(name, ignoreCase = true) || it.toString().equals(name, ignoreCase = true) }
+
+    }
 
         fun updateClub(id: String, name: String, city: String, stadium: String): Club {
             val club = clubs.find { it.uid == id }!!
@@ -46,8 +48,6 @@ class League (
             club.stadium = stadium
             return club
         }
-
-
 
         fun containsClub(name: String): Boolean {
             return clubs.any { it.name.equals(name, ignoreCase = true) }

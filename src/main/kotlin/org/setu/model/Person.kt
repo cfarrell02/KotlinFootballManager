@@ -14,7 +14,4 @@ abstract class Person(
         require(dateOfBirth.isBefore(LocalDate.now())) { "Date of birth cannot be in the future" }
     }
 
-    override fun toString(): String {
-        return "$name, $dateOfBirth, $nationality"
-    }
 }

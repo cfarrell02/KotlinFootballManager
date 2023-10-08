@@ -46,9 +46,14 @@ class ClubTest {
     @Test
     fun removePerson() {
         assertEquals(3, club.people.size)
-        val removedPlayer = club.removePerson(club.people[0])
+        val removedPlayer = club.removePerson(club.people[0].uid)
         assertEquals(2, club.people.size)
         assertFalse(club.people.contains(removedPlayer))
+
+        //test for removing a player that doesn't exist
+        assertThrows(IllegalArgumentException::class.java) {
+            club.removePerson("Test Player 2")
+        }
     }
 
     @Test
@@ -91,6 +96,9 @@ class ClubTest {
         val person = club.getPerson(0)
         assertEquals(3, club.people.size)
         assertEquals(club.people[0], person)
+        assertThrows(IndexOutOfBoundsException::class.java) {
+            club.getPerson(-1)
+        }
     }
 
     @Test
@@ -99,6 +107,8 @@ class ClubTest {
         val person = club.searchPlayer("John Doe")
         assertEquals(3, club.people.size)
         assertEquals(club.people[0], person)
+        val person2 = club.searchPlayer("1")
+
     }
 
     @Test

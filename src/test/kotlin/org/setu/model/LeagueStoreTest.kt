@@ -38,6 +38,14 @@ class LeagueStoreTest {
     }
 
     @Test
+    fun removeLeague() {
+        assertEquals(1, leagueStore.leagues.size)
+        val removedLeague = leagueStore.removeLeague(leagueStore.leagues[0].uid)
+        assertEquals(0, leagueStore.leagues.size)
+        assertFalse(leagueStore.leagues.contains(removedLeague))
+    }
+
+    @Test
     fun updateLeague() {
         assertEquals(1, leagueStore.leagues.size)
         val updatedLeague = leagueStore.updateLeague(leagueStore.leagues[0].uid, "Test League 2", "Test Country 2")
@@ -57,6 +65,12 @@ class LeagueStoreTest {
         val searchPlayer = leagueStore.search("John Doe")
         assertEquals(1, searchPlayer.size)
         assertTrue(searchPlayer.contains(leagueStore.leagues[0].clubs[0].people[0]))
+
+        //Search for club
+        val searchClub = leagueStore.search("Test Club")
+        assertEquals(1, searchClub.size)
+        assertTrue(searchClub.contains(leagueStore.leagues[0].clubs[0]))
+
     }
 
 

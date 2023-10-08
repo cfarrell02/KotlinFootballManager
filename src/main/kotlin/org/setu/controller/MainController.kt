@@ -283,7 +283,7 @@ class MainController {
             return
 
         val club = selectedLeague?.getClub(selectedClub.uid)
-        selectedLeague?.removeClub(club!!)
+        selectedLeague?.removeClub(club?.uid ?: throw Exception("Club does not exist"))
         clubList.items.remove(selectedClub)
         }catch (e: Exception){
             AlertBox.display("Error", e.message)
@@ -367,7 +367,7 @@ class MainController {
                 "This will delete ${selectedPerson.name}"))
             return
         require(selectedPerson != null){"Person does not exist"}
-        selectedClub?.removePerson(selectedPerson)
+        selectedClub?.removePerson(selectedPerson.uid)
         personList.items.remove(selectedPerson)
         }catch (e: Exception){
             AlertBox.display("Error", e.message)

@@ -39,9 +39,14 @@ class LeagueTest {
     @Test
     fun removeClub() {
         assertEquals(1, league.clubs.size)
-        val removedClub = league.removeClub(league.clubs[0])
+        val removedClub = league.removeClub(league.clubs[0].uid)
         assertEquals(0, league.clubs.size)
         assertFalse(league.clubs.contains(removedClub))
+
+        //test for removing a club that doesn't exist
+        assertThrows(IllegalArgumentException::class.java) {
+            league.removeClub("Test Club 2")
+        }
     }
 
     @Test

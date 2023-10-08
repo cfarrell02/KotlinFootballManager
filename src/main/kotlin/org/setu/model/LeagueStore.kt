@@ -21,8 +21,10 @@ class LeagueStore {
     }
 
 
-    fun removeLeague(uid: String) {
+    fun removeLeague(uid: String): League {
+        val league = _leagues.find { it.uid == uid } ?: throw IllegalArgumentException("League with uid $uid not found")
         _leagues.removeIf { it.uid == uid }
+        return league
     }
 
     fun updateLeague(uid: String, name: String, country: String): League {
