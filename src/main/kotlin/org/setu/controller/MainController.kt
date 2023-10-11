@@ -5,6 +5,7 @@ import javafx.fxml.FXML
 import javafx.scene.control.*
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.Pane
+import javafx.stage.Stage
 import javafx.stage.WindowEvent
 import org.setu.model.*
 import org.setu.view.AlertBox
@@ -12,8 +13,7 @@ import tornadofx.*
 import java.time.LocalDate
 import java.util.*
 
-
-class MainController {
+class MainController: Controller() {
     private val leagueStore = LeagueStore()
     private var selectedLeague: League? = null
     private var selectedClub: Club? = null
@@ -59,6 +59,9 @@ class MainController {
     lateinit var staffSalary : TextField
     lateinit var playerStaffToggle : ToggleButton
 
+    val isDirty : Boolean
+        get() = leagueStore.isDirty
+
 
     @FXML
     fun initialize() {
@@ -67,7 +70,7 @@ class MainController {
         clubPane.isVisible = false
         playerPane.isVisible = false
         searchPane.isVisible = false
-
+        load()
         playerStaffToggle.onAction = EventHandler {
             toggleStaffPlayerButton()
         }
@@ -431,15 +434,6 @@ class MainController {
     }
 
 
-    fun save() {
-        try {
-            leagueStore.save()
-        } catch (e: Exception) {
-            AlertBox.display("Error", "Error saving file \n ${e.message}")
-        }
-    }
-
-
     fun addPosition(){
         val position = positionBox.text
         if(position.isNotEmpty()){
@@ -452,6 +446,14 @@ class MainController {
         val position = positionList.selectionModel.selectedItem
         positionList.items.remove(position)
         (selectedPerson as Player).removePosition(position)
+    }
+
+    fun save() {
+        try {
+            leagueStore.save()
+        } catch (e: Exception) {
+            AlertBox.display("Error", "Error saving file \n ${e.message}")
+        }
     }
 
     fun load() {

@@ -8,11 +8,14 @@ import java.io.File
 
 class LeagueStore {
     private val _leagues = mutableListOf<League>()
+    var isDirty = false
+
 
     val leagues: List<League>
         get() = _leagues
 
     fun addLeague(name: String, country: String): League {
+        isDirty = true
         require(name != "") { "Name cannot be blank" }
         require(country != "") { "Country cannot be blank" }
         val league = League(name, country)
@@ -22,6 +25,7 @@ class LeagueStore {
 
 
     fun removeLeague(uid: String): League {
+        isDirty = true
         val league = _leagues.find { it.uid == uid } ?: throw IllegalArgumentException("League with uid $uid not found")
         _leagues.removeIf { it.uid == uid }
         return league
@@ -32,6 +36,7 @@ class LeagueStore {
     }
 
     fun updateLeague(uid: String, name: String, country: String): League {
+        isDirty = true
         val league = _leagues.find { it.uid == uid }!!
         require(name != "") { "Name cannot be blank" }
         require(country != "") { "Country cannot be blank" }

@@ -3,6 +3,8 @@ plugins {
     id 'application'
     id "org.openjfx.javafxplugin" version "0.0.9"
     id 'com.xcporter.jpkg' version '0.0.7'
+    id 'java'
+
 }
 
 group = 'com.test'
@@ -41,7 +43,6 @@ task createJar(type: Jar) {
     manifest {
         attributes 'Main-Class': 'org.setu.main.MainKt'
     }
-    baseName = 'setu'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
@@ -50,3 +51,13 @@ task createJar(type: Jar) {
 test {
     testLogging.showStandardStreams = true
 }
+
+jar {
+    manifest {
+        attributes(
+
+                'Main-Class': 'org.setu.main.MainKt'
+        )
+    }
+}
+

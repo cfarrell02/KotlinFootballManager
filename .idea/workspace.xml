@@ -10,8 +10,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="321233bb-825e-4b27-b15f-4a5ce103599a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/tornadofx_gradle_project_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/tornadofx_gradle_project_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leagues.json" beforeDir="false" afterPath="$PROJECT_DIR$/leagues.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/controller/MainController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/controller/MainController.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/main/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/main/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/LeagueStore.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/model/LeagueStore.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/view/AlertBox.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/view/AlertBox.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/view/MainView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/view/MainView.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/leagues.json" beforeDir="false" afterPath="$PROJECT_DIR$/leagues.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/controller/MainController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/controller/MainController.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/main/MyApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/main/MyApp.kt" afterDir="false" />
@@ -19,6 +32,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/org/setu/view/MainView.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/org/setu/view/MainView.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/MainView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/LeagueStoreTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/org/setu/model/LeagueStoreTest.kt" afterDir="false" />
+>>>>>>> 0f32198f57730d1bf43d1726c739a2166773b1ca
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,6 +138,8 @@
     </key>
   </component>
   <component name="RunManager" selected="Kotlin.MainKt">
+<<<<<<< HEAD
+=======
     <configuration name="ClubTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -172,6 +188,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+>>>>>>> 0f32198f57730d1bf43d1726c739a2166773b1ca
     <configuration name="Tests in 'org.setu.model'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -218,6 +235,23 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
+<<<<<<< HEAD
+    <configuration name="Launcher" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.setu.main.Launcher" />
+      <module name="tornadofx-gradle-project.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.setu.main.Main" />
+      <module name="tornadofx-gradle-project.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+=======
+>>>>>>> 0f32198f57730d1bf43d1726c739a2166773b1ca
     <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.setu.main.MainKt" />
       <module name="tornadofx-gradle-project.main" />
@@ -226,19 +260,34 @@
       </method>
     </configuration>
     <list>
+<<<<<<< HEAD
+      <item itemvalue="Gradle.Tests in 'org.setu.model'" />
+      <item itemvalue="Gradle.Tests in 'tornadofx-gradle-project.test'" />
+      <item itemvalue="Kotlin.Launcher" />
+      <item itemvalue="Kotlin.Main" />
+=======
       <item itemvalue="Gradle.ClubTest.removePerson" />
       <item itemvalue="Gradle.ClubTest" />
       <item itemvalue="Gradle.Tests in 'org.setu.model'" />
       <item itemvalue="Gradle.Tests in 'tornadofx-gradle-project.test'" />
+>>>>>>> 0f32198f57730d1bf43d1726c739a2166773b1ca
       <item itemvalue="Kotlin.MainKt" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Kotlin.MainKt" />
+<<<<<<< HEAD
+        <item itemvalue="Kotlin.Main" />
+=======
+>>>>>>> 0f32198f57730d1bf43d1726c739a2166773b1ca
         <item itemvalue="Gradle.Tests in 'tornadofx-gradle-project.test'" />
+        <item itemvalue="Kotlin.Launcher" />
         <item itemvalue="Gradle.Tests in 'org.setu.model'" />
+<<<<<<< HEAD
+=======
         <item itemvalue="Gradle.ClubTest" />
         <item itemvalue="Gradle.ClubTest.removePerson" />
+>>>>>>> 0f32198f57730d1bf43d1726c739a2166773b1ca
       </list>
     </recent_temporary>
   </component>
@@ -265,7 +314,15 @@
       <workItem from="1696693828750" duration="424000" />
       <workItem from="1696694261692" duration="2680000" />
       <workItem from="1696696953308" duration="2131000" />
+<<<<<<< HEAD
+      <workItem from="1696841505621" duration="68000" />
+      <workItem from="1696854921945" duration="762000" />
+      <workItem from="1696934537474" duration="603000" />
+      <workItem from="1697012284471" duration="52000" />
+      <workItem from="1697013711955" duration="4160000" />
+=======
       <workItem from="1696771520512" duration="7015000" />
+>>>>>>> 0f32198f57730d1bf43d1726c739a2166773b1ca
     </task>
     <servers />
   </component>
@@ -280,6 +337,11 @@
     <SUITE FILE_PATH="coverage/tornadofx_gradle_project$Tests_in__org_setu_model_.ic" NAME="Tests in 'org.setu.model' Coverage Results" MODIFIED="1696722459876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/tornadofx_gradle_project$LeagueTest_removeClub.ic" NAME="LeagueTest.removeClub Coverage Results" MODIFIED="1696721986740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/tornadofx_gradle_project$ClubTest_removePerson.ic" NAME="ClubTest.removePerson Coverage Results" MODIFIED="1696722336136" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+<<<<<<< HEAD
+    <SUITE FILE_PATH="coverage/tornadofx_gradle_project$Tests_in__org_setu_model_.ic" NAME="Tests in 'org.setu.model' Coverage Results" MODIFIED="1696722459876" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/tornadofx_gradle_project$Tests_in__tornadofx_gradle_project_test_.ic" NAME="Tests in 'tornadofx-gradle-project.test' Coverage Results" MODIFIED="1696762051143" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+=======
     <SUITE FILE_PATH="coverage/tornadofx_gradle_project$Tests_in__tornadofx_gradle_project_test___1_.ic" NAME="Tests in 'tornadofx-gradle-project.test' (1) Coverage Results" MODIFIED="1696721452700" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+>>>>>>> 0f32198f57730d1bf43d1726c739a2166773b1ca
   </component>
 </project>
