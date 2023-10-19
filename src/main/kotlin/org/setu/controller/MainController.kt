@@ -70,7 +70,7 @@ class MainController: Controller() {
         clubPane.isVisible = false
         playerPane.isVisible = false
         searchPane.isVisible = false
-        load()
+
         playerStaffToggle.onAction = EventHandler {
             toggleStaffPlayerButton()
         }
@@ -177,6 +177,11 @@ class MainController: Controller() {
                     else -> throw Exception("Unknown type")
                 }
             }
+        }
+
+        if( AlertBox.displayConfirmation("Load", "Load file?", "Would you content from file?",
+                "Yes", "No")){
+            load()
         }
     }
     fun goBack(){
